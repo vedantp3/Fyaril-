@@ -99,10 +99,29 @@
   }
   
   .help-card {
-    @apply bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center justify-center gap-4 hover:scale-[1.02];
+    @apply bg-white/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center justify-center gap-4 hover:scale-[1.03] border border-white/20;
   }
   
   .help-card-icon {
     @apply w-12 h-12 rounded-full bg-gradient-to-br from-fyaril-blue to-fyaril-teal text-white flex items-center justify-center;
   }
 }
+
+/* Creative background pattern */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
