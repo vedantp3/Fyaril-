@@ -26,11 +26,11 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				fyaril: {
-					blue: '#1e88e5',
-					darkblue: '#0d47a1',
-					lightblue: '#64b5f6',
-					teal: '#26a69a',
-          accent: '#42a5f5',
+					blue: '#247e9d',  // Updated to brand primary color
+					darkblue: '#1a5f77', // Darker shade of primary
+					lightblue: '#4aa0bc', // Lighter shade of primary
+					teal: '#c2ded3',   // Updated to brand secondary color
+          accent: '#deebda',  // Added another secondary color
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

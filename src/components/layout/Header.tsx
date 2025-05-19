@@ -2,14 +2,26 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 import { Input } from "@/components/ui/input";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header className="w-full bg-gradient-to-r from-fyaril-blue to-fyaril-teal py-4 px-6">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center">
-          <h1 className="text-white text-2xl font-bold">Fyaril Help Center</h1>
+          <Link to="/">
+            <h1 className="text-white text-2xl font-bold">Fyaril Help Center</h1>
+          </Link>
         </div>
+        
+        {/* User type navigation for mobile/tablet */}
+        <div className="md:hidden user-type-nav">
+          <Link to="/sellers" className="user-type-nav-item">Sellers</Link>
+          <Link to="/b2b" className="user-type-nav-item">B2B</Link>
+          <Link to="/b2c" className="user-type-nav-item">B2C</Link>
+          <Link to="/partners" className="user-type-nav-item">Partners</Link>
+        </div>
+        
         <div className="relative w-full max-w-md">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />

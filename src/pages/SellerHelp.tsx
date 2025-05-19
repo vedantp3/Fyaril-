@@ -104,20 +104,14 @@ const SellerHelp = () => {
   return (
     <MainLayout>
       <div className="container mx-auto">
-        <div className="mb-10">
-          <div className="text-sm text-gray-500 mb-2 flex items-center space-x-2">
-            <span>Help Center</span> 
-            <span className="text-gray-400">/</span> 
-            <span className="text-fyaril-blue font-medium">For Sellers</span>
-          </div>
-          <HelpCategoryHeader 
-            title="For Sellers" 
-            description="Welcome to the Fyaril Seller Help Center. Find everything you need to know about selling on Fyaril."
-          />
-        </div>
+        <HelpCategoryHeader 
+          title="For Sellers" 
+          description="Welcome to the Fyaril Seller Help Center. Find everything you need to know about selling on Fyaril."
+          userType="sellers"
+        />
         
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-fyaril-blue/5 to-white/0 rounded-3xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-fyaril-teal/5 to-white/0 rounded-3xl -z-10"></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {helpCards.map((card, index) => (
               <div 
