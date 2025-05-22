@@ -1,898 +1,1021 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
-import { ArrowLeft, Calendar, Clock, User, Check, AlertCircle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-interface SellerDetailContent {
-  [key: string]: {
-    title: string;
-    lastUpdated: string;
-    author: string;
-    content: React.ReactNode;
-  };
-}
-
-const SellerDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  
-  const content: SellerDetailContent = {
-    "start-selling": {
-      title: "Start Selling with Fyaril",
-      lastUpdated: "May 15, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>Getting started as a seller on Fyaril is easy! Follow these steps to begin your journey:</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step 1: Create your Seller Account</h3>
-            <p>Register as a vendor through our simple registration process. You'll need to provide basic information about yourself or your business.</p>
-            <Button className="mt-4 bg-fyaril-blue hover:bg-fyaril-darkblue">
-              Register Now
-            </Button>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step 2: Complete KYC Verification</h3>
-            <p>We'll need to verify your identity to ensure trust and safety for all users on our platform. This process typically takes 1-2 business days.</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Government-issued photo ID</li>
-              <li>Proof of address</li>
-              <li>Business documentation (for business accounts)</li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step 3: Set Up Your Seller Profile</h3>
-            <p>Create an attractive and informative seller profile. This is your storefront on Fyaril and will help buyers trust your business.</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Add a professional profile picture or logo</li>
-              <li>Write a compelling bio that highlights your expertise</li>
-              <li>Showcase your relevant experience and credentials</li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step 4: List Your First Product</h3>
-            <p>Start adding products to your inventory. High-quality images and detailed descriptions will help your products stand out.</p>
-            <Button className="mt-4 bg-fyaril-teal hover:bg-fyaril-blue">
-              Learn About Product Listing
-            </Button>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step 5: Set Up Payment Methods</h3>
-            <p>Connect your preferred payment method to receive your earnings. We support multiple payment options for your convenience.</p>
-          </div>
-          
-          <div className="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-xl">
-            <h3 className="text-xl font-medium text-fyaril-blue mb-2">Need More Help?</h3>
-            <p>Our seller support team is available 24/7 to help you with any questions or issues you might have.</p>
-            <Button className="mt-4 bg-fyaril-blue hover:bg-fyaril-darkblue">
-              Contact Support
-            </Button>
-          </div>
-        </div>
-      )
-    },
-    "plans": {
-      title: "Seller Plans",
-      lastUpdated: "May 18, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>Fyaril offers different plans to cater to sellers at various stages of their business. Each plan is designed to help you grow your business on our platform.</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-fyaril-blue/20">
-              <div className="bg-gradient-to-r from-fyaril-blue to-fyaril-teal p-4 text-white">
-                <h3 className="text-xl font-bold text-center">Basic Plan</h3>
-              </div>
-              <div className="p-6">
-                <div className="text-center mb-4">
-                  <span className="text-3xl font-bold">Free</span>
-                </div>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>List up to 50 products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>5% Commission fee</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Basic seller support</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Standard visibility in search</span>
-                  </li>
-                </ul>
-                <div className="mt-6">
-                  <Button className="w-full bg-fyaril-blue hover:bg-fyaril-darkblue">Get Started</Button>
-                </div>
-              </div>
+// Content for different seller pages
+const sellerPages = {
+  'start-selling': {
+    title: 'Start Selling with Fyaril',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Getting Started</h2>
+        <p>Fyaril connects manufacturers and sellers in India with customers across Europe. Our platform enables businesses of all sizes to expand their reach and tap into new markets without the complexities usually associated with cross-border trade.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Three Simple Steps to Start Selling</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-fyaril-teal/10 p-4 rounded-lg">
+              <div className="w-10 h-10 bg-fyaril-blue text-white rounded-full flex items-center justify-center font-bold text-lg mb-3">1</div>
+              <h4 className="font-medium text-lg mb-2">Register as a Seller</h4>
+              <p className="text-gray-600">Apply to become a seller through our online application form.</p>
             </div>
-            
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-fyaril-blue/20 transform scale-105">
-              <div className="bg-gradient-to-r from-fyaril-blue to-fyaril-darkblue p-4 text-white">
-                <h3 className="text-xl font-bold text-center">Standard Plan</h3>
-                <p className="text-xs text-center text-white/80 mt-1">Most Popular</p>
-              </div>
-              <div className="p-6">
-                <div className="text-center mb-4">
-                  <span className="text-3xl font-bold">$29</span>
-                  <span className="text-gray-500">/month</span>
-                </div>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>List up to 500 products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>3% Commission fee</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Priority seller support</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Enhanced visibility in search</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Promotional tools</span>
-                  </li>
-                </ul>
-                <div className="mt-6">
-                  <Button className="w-full bg-fyaril-blue hover:bg-fyaril-darkblue">Subscribe Now</Button>
-                </div>
-              </div>
+            <div className="bg-fyaril-teal/10 p-4 rounded-lg">
+              <div className="w-10 h-10 bg-fyaril-blue text-white rounded-full flex items-center justify-center font-bold text-lg mb-3">2</div>
+              <h4 className="font-medium text-lg mb-2">Complete KYC</h4>
+              <p className="text-gray-600">Verify your identity and business credentials through our KYC process.</p>
             </div>
-            
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-fyaril-blue/20">
-              <div className="bg-gradient-to-r from-fyaril-teal to-fyaril-blue p-4 text-white">
-                <h3 className="text-xl font-bold text-center">Premium Plan</h3>
-              </div>
-              <div className="p-6">
-                <div className="text-center mb-4">
-                  <span className="text-3xl font-bold">$99</span>
-                  <span className="text-gray-500">/month</span>
-                </div>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Unlimited products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>2% Commission fee</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Dedicated account manager</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Top visibility in search</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-                    <span>Advanced analytics & reporting</span>
-                  </li>
-                </ul>
-                <div className="mt-6">
-                  <Button className="w-full bg-fyaril-teal hover:bg-fyaril-blue text-fyaril-blue hover:text-white">Contact Sales</Button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 mt-8">
-            <h3 className="text-xl font-medium mb-4">Plan Comparison</h3>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Basic</th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Standard</th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Premium</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Maximum Products</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">50</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">500</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unlimited</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Commission Fee</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5%</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3%</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2%</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Customer Support</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Priority</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dedicated</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-          <div className="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-xl">
-            <h3 className="text-xl font-medium text-fyaril-blue mb-2">Have Questions About Pricing?</h3>
-            <p>Our team is ready to help you choose the best plan for your business needs.</p>
-            <Button className="mt-4 bg-fyaril-blue hover:bg-fyaril-darkblue">
-              Contact Sales Team
-            </Button>
-          </div>
-        </div>
-      )
-    },
-    "kyc": {
-      title: "Complete Seller KYC",
-      lastUpdated: "May 16, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p className="text-gray-700">For selling on Fyaril, all sellers must complete basic KYC (Know Your Customer) and receive Fyaril's verified badge.</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Uploading KYC Documents through Vendor Panel</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                To upload KYC documents through the vendor panel, login with your login ID and password through the Seller Partner dropdown menu.
-              </li>
-              <li className="ml-2">
-                Click on the 'My Seller' dropdown menu and make your way to the 'KYC & Certification' tab.
-              </li>
-              <li className="ml-2">
-                Here you can see different tabs for different kinds of certifications. Click on the tab of which you wish to apply for the respective badge. In order to receive the badge, you will need to upload a series of documents.
-              </li>
-              <li className="ml-2">
-                Click on the 'Choose File' button to upload a file from your desktop. Once you have uploaded all the necessary documents click on save.
-              </li>
-            </ol>
-          </div>
-          
-          <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
-            <div className="flex items-start">
-              <AlertCircle className="h-6 w-6 text-yellow-500 mr-3 shrink-0 mt-0.5" />
-              <div>
-                <h4 className="text-lg font-medium text-yellow-800">Important Notes</h4>
-                <ul className="list-disc list-inside mt-2 space-y-2 text-yellow-800">
-                  <li>All vendors must complete the Verified KYC. By default for all vendors, order fulfillment is done by Fyaril.</li>
-                  <li>Incomplete KYC will result in delay in order processing and potentially cancellation of orders.</li>
-                  <li>Completing the 'Exporter' tab is mandatory if the order fulfillment is done by the vendor. This can be done by uploading all the documents from Exporter tab.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>If you have any additional queries, don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-              <li>You can find more information about KYC Types and purpose for each badge on our website.</li>
-            </ul>
-          </div>
-          
-          <div className="mt-6 p-5 rounded-lg bg-fyaril-teal/10 border border-fyaril-teal/30">
-            <h3 className="text-xl font-medium text-fyaril-blue mb-3">Was the information found helpful?</h3>
-            <div className="flex space-x-4">
-              <Button variant="outline" className="border-fyaril-blue text-fyaril-blue hover:bg-fyaril-blue hover:text-white">
-                Yes
-              </Button>
-              <Button variant="outline" className="border-fyaril-blue text-fyaril-blue hover:bg-fyaril-blue hover:text-white">
-                No
-              </Button>
+            <div className="bg-fyaril-teal/10 p-4 rounded-lg">
+              <div className="w-10 h-10 bg-fyaril-blue text-white rounded-full flex items-center justify-center font-bold text-lg mb-3">3</div>
+              <h4 className="font-medium text-lg mb-2">Create Your Listings</h4>
+              <p className="text-gray-600">Upload your products and start selling to customers across Europe.</p>
             </div>
           </div>
         </div>
-      )
-    },
-    "edit-profile": {
-      title: "Edit My Vendor Profile",
-      lastUpdated: "May 14, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>Keep your vendor profile updated to achieve best sales performance and smooth communication.</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Editing Vendor Profile from the Vendor Panel</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                To edit your vendor profile, login with your login ID and password through the Seller Partner dropdown menu.
-              </li>
-              <li className="ml-2">
-                In the top right corner you can see a little profile icon with a dropdown menu. Click on the profile icon and then select 'Edit Profile'.
-              </li>
-              <li className="ml-2">
-                <div className="mt-2 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Profile Edit Menu" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
-              </li>
-              <li className="ml-2">
-                Once you come to the profile edit page, you can edit your information, such as your billing address, shipping address, account information and such.
-              </li>
-              <li className="ml-2">
-                Once you make your edits click on SAVE so that your changes are saved to our servers.
-              </li>
-            </ol>
+        
+        <h2 className="text-2xl font-bold mt-8">What You'll Need</h2>
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <ul className="list-disc pl-5 space-y-2">
+            <li>Business registration documents</li>
+            <li>PAN card and GST registration (for Indian sellers)</li>
+            <li>Bank account details for receiving payments</li>
+            <li>Product information and images</li>
+            <li>Pricing strategy for European market</li>
+          </ul>
+        </div>
+        
+        <h2 className="text-2xl font-bold mt-8">Benefits of Selling on Fyaril</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold mb-3">Access to European Markets</h3>
+            <p>Reach 748 million European consumers including 5.5 million South Asian origin consumers without needing a European business entity.</p>
           </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Profile Edit Screenshot</h3>
-            <div className="mt-2">
-              <img 
-                src="/placeholder.svg" 
-                alt="Profile Edit Page" 
-                className="rounded-lg border border-gray-200 max-w-full h-auto"
-                style={{ maxHeight: "300px" }}
-              />
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold mb-3">Simplified Compliance</h3>
+            <p>We handle European regulations and compliance requirements, making it easy for you to sell internationally.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold mb-3">Local Currency Payments</h3>
+            <p>Receive payments in your local currency with transparent exchange rates.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold mb-3">Logistics Support</h3>
+            <p>Get help with shipping, customs, and delivery logistics to ensure smooth fulfillment.</p>
+          </div>
+        </div>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <AlertCircle className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle>Ready to get started?</AlertTitle>
+          <AlertDescription>
+            Apply to become a seller today and start expanding your business globally with Fyaril.
+          </AlertDescription>
+          <Button className="mt-3 bg-fyaril-blue hover:bg-fyaril-blue/80">Apply Now</Button>
+        </Alert>
+      </div>
+    )
+  },
+  'plans': {
+    title: 'Seller Plans',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Seller Plans</h2>
+        <p className="text-gray-700">Choose the plan that best fits your business needs. All plans include access to the European market and Fyaril's seller tools.</p>
+        
+        <div className="grid md:grid-cols-3 gap-6 mt-8">
+          <div className="bg-white rounded-lg shadow-md border border-fyaril-teal/30 overflow-hidden">
+            <div className="bg-fyaril-teal/20 p-4 text-center">
+              <h3 className="text-xl font-bold">Basic</h3>
+              <p className="text-sm text-gray-600">For small businesses</p>
+            </div>
+            <div className="p-6">
+              <div className="text-center mb-6">
+                <span className="text-3xl font-bold">Free</span>
+                <p className="text-sm text-gray-500">+ 15% commission</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  List up to 50 products
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Basic analytics
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Standard support
+                </li>
+              </ul>
+              <Button className="w-full bg-fyaril-blue hover:bg-fyaril-blue/80">Select Plan</Button>
             </div>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>If you have any additional queries don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-            </ul>
+          <div className="bg-white rounded-lg shadow-lg border-2 border-fyaril-blue overflow-hidden transform scale-105">
+            <div className="bg-fyaril-blue text-white p-4 text-center">
+              <div className="inline-block bg-white text-fyaril-blue text-xs font-bold uppercase px-3 py-1 rounded-full mb-2">Most Popular</div>
+              <h3 className="text-xl font-bold">Standard</h3>
+              <p className="text-sm">For growing businesses</p>
+            </div>
+            <div className="p-6">
+              <div className="text-center mb-6">
+                <span className="text-3xl font-bold">€49</span>
+                <span className="text-gray-500">/month</span>
+                <p className="text-sm text-gray-500">+ 10% commission</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  List up to 500 products
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Advanced analytics
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Priority support
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Marketing tools
+                </li>
+              </ul>
+              <Button className="w-full bg-fyaril-blue hover:bg-fyaril-blue/80">Select Plan</Button>
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md border border-fyaril-teal/30 overflow-hidden">
+            <div className="bg-fyaril-teal/20 p-4 text-center">
+              <h3 className="text-xl font-bold">Premium</h3>
+              <p className="text-sm text-gray-600">For established businesses</p>
+            </div>
+            <div className="p-6">
+              <div className="text-center mb-6">
+                <span className="text-3xl font-bold">€199</span>
+                <span className="text-gray-500">/month</span>
+                <p className="text-sm text-gray-500">+ 5% commission</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Unlimited products
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Advanced analytics + API access
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  24/7 dedicated support
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg>
+                  Featured placement
+                </li>
+              </ul>
+              <Button className="w-full bg-fyaril-blue hover:bg-fyaril-blue/80">Select Plan</Button>
+            </div>
           </div>
         </div>
-      )
-    },
-    "complete-profile": {
-      title: "Complete Seller Profile",
-      lastUpdated: "May 12, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>Seller profile has important information for selling your products globally. Ensure profile is complete for the best selling experience.</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Editing/Updating My seller Profile from vendor panel</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                To edit your seller profile from the vendor panel, login with your login ID and password through the Seller Partner dropdown menu.
-              </li>
-              <li className="ml-2">
-                Click on the 'My Seller' dropdown menu and make your way to 'My User Profile'.
-              </li>
-              <li className="ml-2">
-                <div className="mt-2 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="User Profile Menu" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
-              </li>
-              <li className="ml-2">
-                In the seller profile, you will see numerous different tabs:
-                <div className="mt-2 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Profile Tabs" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
-              </li>
-            </ol>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Check the General tab</h3>
-            <p>All details must be correctly filled:</p>
-            <ul className="list-disc list-inside mt-2 space-y-2">
-              <li className="ml-2">Connect with stripe - Connect your stripe account for automatic direct payouts to your bank.</li>
-              <li className="ml-2">If you have Business/Large then connect with Fyaril/B2B or Fyaril/B2C accounts.</li>
-              <li className="ml-2">If you have verified legal/large then connect with Fyaril/Trade Private Limited account.</li>
-              <li className="ml-2">Business Document - all documents required by the government for running a foreign trade and payroll.</li>
-              <li className="ml-2">Signature – soft copy of signature for use on invoices.</li>
-              <li className="ml-2">Bank details – used for payouts and invoices.</li>
-              <li className="ml-2">Billing address details such as registered office address and phone number where your invoices will be printed up from.</li>
-              <li className="ml-2">Logo - kindly upload your Logo as this would be printed on the invoice and displayed on your presentation.</li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Fill in return terms and conditions</h3>
-            <p>These terms are seen by the customers and agreed before completing order for your products.</p>
-            <p>Return policy terms and conditions related to products and company policies. FOR EXAMPLE: the offer return and/or exchange within the first 14 days of your purchases if 14 days have passed since your purchase you will not be offered a refund and/or exchange of any kind.</p>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>Once you make the changes click on SAVE.</p>
-            <p>If you have any additional queries don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-            </ul>
-          </div>
-        </div>
-      )
-    },
-    "badges": {
-      title: "Vendor Badges",
-      lastUpdated: "May 10, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">What is a badge? Why do I need it for my business?</h3>
-            <p>Vendor badges are the visual representation of what verification you've completed on the platform. These badges make your store and products more trustworthy for customers. Each badge helps to increase trust and certifies that you are genuine vendor on our platform. These badges are very important for building your reputation.</p>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Where are the badges displayed on your website?</h3>
-            <p>Badges will be visible on your vendor profile and on the product detail pages where your products are displayed. These are important brand differentiators and marks of trust that you have the right verification in your store and your products are checked by Fyaril.</p>
-          </div>
-          
+        
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Plan Features Comparison</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 border">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S.No</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Badge</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Badge</th>
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-fyaril-teal/10">
+                  <th className="border border-fyaril-teal/20 p-3 text-left">Feature</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Basic</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Standard</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Premium</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody>
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">1</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Verified</td>
-                  <td className="px-6 py-4">All sellers on Fyaril must have verified badge.</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Verified Badge</td>
+                  <td className="border border-fyaril-teal/20 p-3">Monthly Fee</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Free</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">€49</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">€199</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Commission Rate</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">15%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">10%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">5%</td>
                 </tr>
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">2</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Business</td>
-                  <td className="px-6 py-4">This badge indicates your store has customers using business accounts.</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Business</td>
+                  <td className="border border-fyaril-teal/20 p-3">Product Listings</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">50</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">500</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Unlimited</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Support Level</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Standard</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Priority</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Dedicated</td>
                 </tr>
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">3</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Brand</td>
-                  <td className="px-6 py-4">You are a brand! Get verified badge on Fyaril.</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Top Brand</td>
+                  <td className="border border-fyaril-teal/20 p-3">Marketing Tools</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Limited</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Standard</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Premium</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Reporting & Analytics</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Basic</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Advanced</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Premium + API</td>
                 </tr>
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">4</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Green Certification</td>
-                  <td className="px-6 py-4">You have a range of your products with no harmful materials and products through your vendor verification.</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Green Verified</td>
+                  <td className="border border-fyaril-teal/20 p-3">Featured Placement</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">❌</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Limited</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">✅</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Badge Eligibility</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">Basic</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">All</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">All + Priority</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <Alert className="mt-8">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Need help deciding?</AlertTitle>
+          <AlertDescription>
+            Contact our sales team for a consultation to find the best plan for your business needs.
+          </AlertDescription>
+          <Button className="mt-3 bg-fyaril-blue hover:bg-fyaril-blue/80">Contact Sales</Button>
+        </Alert>
+      </div>
+    )
+  },
+  'product-listing': {
+    title: 'Product Listing',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Product Listing Guidelines</h2>
+        <p className="text-gray-700">Follow these guidelines to create effective product listings that will help maximize your sales on Fyaril.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Product Information Requirements</h3>
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"></path>
+                  <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Product Title</h4>
+                <p className="text-gray-600">Clear, descriptive title that includes key product information (80-100 characters).</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Product Description</h4>
+                <p className="text-gray-600">Detailed description with features, benefits, usage, and specifications (min. 300 words recommended).</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Product Categories</h4>
+                <p className="text-gray-600">Choose the most appropriate category and subcategories for your product.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Variants</h4>
+                <p className="text-gray-600">Include all available options such as sizes, colors, materials, etc.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Pricing</h4>
+                <p className="text-gray-600">Set competitive prices in your local currency (we'll handle conversion).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Image Guidelines</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2">Image Requirements</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Minimum 1000 x 1000 pixels resolution</li>
+                <li>Pure white background (RGB: 255, 255, 255)</li>
+                <li>Product should fill at least 85% of the frame</li>
+                <li>File format: JPG or PNG</li>
+                <li>Maximum file size: 10MB per image</li>
+                <li>Minimum 5 images per product</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2">Image Types to Include</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Main product image (front view)</li>
+                <li>Product from multiple angles</li>
+                <li>Close-up details</li>
+                <li>Size/dimension reference</li>
+                <li>Lifestyle/in-use images</li>
+                <li>Packaging (if relevant)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Inventory Management</h3>
+          <p className="mb-4">Maintain accurate inventory to avoid overselling and ensure customer satisfaction.</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2">Inventory Settings</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Set initial stock quantities</li>
+                <li>Configure low stock alerts</li>
+                <li>Update quantities regularly</li>
+                <li>Set backorder availability</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2">Lead Times</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Processing time (1-3 business days recommended)</li>
+                <li>Shipping time estimates</li>
+                <li>Out-of-stock handling preferences</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">European Compliance</h3>
+          <p className="mb-4">Ensure your products meet EU regulations for a smooth selling experience:</p>
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">CE Marking</h4>
+                <p className="text-gray-600">Many products sold in the EU require CE marking to indicate compliance with health, safety, and environmental protection standards.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Language Requirements</h4>
+                <p className="text-gray-600">Product information must be available in English. Additional European languages are encouraged.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">GDPR Compliance</h4>
+                <p className="text-gray-600">All customer data must be handled according to GDPR regulations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-amber-50 border-amber-300">
+          <AlertCircle className="h-4 w-4 text-amber-500" />
+          <AlertTitle className="text-amber-800">Important Note</AlertTitle>
+          <AlertDescription className="text-amber-700">
+            Fyaril reviews all product listings before they go live. This process typically takes 1-2 business days.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'order-processing': {
+    title: 'Order Processing & Shipping',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Order Processing & Shipping</h2>
+        <p className="text-gray-700">Learn how to manage orders efficiently and ship products to European customers through Fyaril.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Order Processing Workflow</h3>
+          
+          <div className="relative">
+            {/* Timeline */}
+            <div className="absolute left-8 top-0 h-full w-1 bg-fyaril-teal/30"></div>
+            
+            {/* Steps */}
+            <div className="space-y-8 relative">
+              <div className="flex gap-4 items-start relative">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">1</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Order Notification</h4>
+                  <p className="text-gray-600">You'll receive an email and dashboard notification when a customer places an order. Orders also appear in your "New Orders" section of the Fyaril seller dashboard.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start relative">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">2</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Order Confirmation</h4>
+                  <p className="text-gray-600">Review the order details and confirm that you can fulfill it within the promised timeframe. If there are any issues with inventory or fulfillment, contact Fyaril support immediately.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start relative">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">3</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Packaging</h4>
+                  <p className="text-gray-600">Package the items securely according to Fyaril's <a href="/sellers/packaging" className="text-fyaril-blue hover:underline">packaging guidelines</a> to ensure they arrive in perfect condition. Include the packing slip generated from your seller dashboard.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start relative">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">4</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Shipping</h4>
+                  <p className="text-gray-600">Generate shipping labels through the Fyaril dashboard and arrange for pickup or drop-off according to your chosen shipping method.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start relative">
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">5</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Tracking & Updates</h4>
+                  <p className="text-gray-600">The tracking number is automatically shared with the customer. You can monitor shipment progress through your dashboard.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Shipping Options</h3>
+          
+          <div className="space-y-6">
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">Domestic Shipping to Fyaril Warehouse</h4>
+              </div>
+              <div className="p-4">
+                <p className="mb-3">For Standard and Basic plan sellers, ship your products to our warehouse in India:</p>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Ship to our warehouse in Pune or Mumbai</li>
+                  <li>We handle international logistics, customs, and delivery to the customer</li>
+                  <li>Lower cost but longer delivery times (14-21 days)</li>
+                  <li>Ideal for non-urgent, non-perishable items</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">Direct International Shipping</h4>
+              </div>
+              <div className="p-4">
+                <p className="mb-3">For Premium plan sellers or those with the Exporter badge:</p>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Ship directly to customers internationally</li>
+                  <li>Use our negotiated rates with international carriers</li>
+                  <li>Faster delivery times (7-10 days)</li>
+                  <li>Higher shipping costs</li>
+                  <li>You're responsible for export documentation</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">European Fulfillment</h4>
+              </div>
+              <div className="p-4">
+                <p className="mb-3">For high-volume sellers with consistent sales:</p>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Store inventory in our European warehouses</li>
+                  <li>Fastest delivery times (1-3 days within Europe)</li>
+                  <li>Higher storage fees but lower per-order shipping costs</li>
+                  <li>Contact your account manager to set up European fulfillment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Customs & Documentation</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2">Required Documentation</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Commercial Invoice (generated from dashboard)</li>
+                <li>Packing List</li>
+                <li>Certificate of Origin (if applicable)</li>
+                <li>Product Certifications (if applicable)</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2">Customs Information</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>All products must have HS codes</li>
+                <li>Accurate product descriptions required</li>
+                <li>Declaration of value must match invoiced amount</li>
+                <li>Some products may require special permits</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Delivery Timeframes</h3>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-fyaril-teal/10">
+                  <th className="border border-fyaril-teal/20 p-3 text-left">Shipping Method</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Processing Time</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Shipping Time</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Total Delivery Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-fyaril-teal/20 p-3">Warehouse Shipping</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1-3 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">14-21 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">15-24 days</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Direct International</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1-3 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">7-10 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">8-13 days</td>
+                </tr>
+                <tr>
+                  <td className="border border-fyaril-teal/20 p-3">European Fulfillment</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1 day</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1-3 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">2-4 days</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Express Shipping</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1 day</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">3-5 days</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">4-6 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Need assistance?</AlertTitle>
+          <AlertDescription>
+            Our logistics team is available to help with any shipping or customs questions. Contact us through the seller dashboard.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'payment': {
+    title: 'Payment Withdrawal',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Payment Withdrawal</h2>
+        <p className="text-gray-700">Learn how payments work on Fyaril and how to withdraw your earnings to your bank account.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Payment Process</h3>
+          
+          <div className="relative pb-6">
+            {/* Timeline */}
+            <div className="absolute left-[30px] top-0 h-full w-1 bg-fyaril-teal/30"></div>
+            
+            {/* Steps */}
+            <div className="space-y-8 relative">
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">1</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Customer Payment</h4>
+                  <p className="text-gray-600">When a customer places an order, they pay the full amount to Fyaril, including product price, shipping, and any applicable taxes.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">2</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Order Fulfillment</h4>
+                  <p className="text-gray-600">You ship the product to the customer (either directly or through our warehouse). The order status is updated to "Delivered" once the customer receives the product.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">3</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Settlement Period</h4>
+                  <p className="text-gray-600">After delivery confirmation and the return period has passed (typically 7 days), the payment enters the settlement process.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">4</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Payment Release</h4>
+                  <p className="text-gray-600">Fyaril releases your payment (product price minus commissions and fees) to your seller account balance.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">5</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Withdraw Funds</h4>
+                  <p className="text-gray-600">You can withdraw available funds from your seller account to your registered bank account according to your chosen payment schedule.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Payment Schedule Options</h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">Weekly</h4>
+              </div>
+              <div className="p-4">
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Payments processed every Monday</li>
+                  <li>Minimum withdrawal amount: ₹5,000</li>
+                  <li>Available for all seller plans</li>
+                  <li>Funds typically arrive in 2-3 business days</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">Bi-Weekly</h4>
+              </div>
+              <div className="p-4">
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Payments processed on the 1st and 15th</li>
+                  <li>Minimum withdrawal amount: ₹10,000</li>
+                  <li>Available for all seller plans</li>
+                  <li>Funds typically arrive in 2-3 business days</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg overflow-hidden">
+              <div className="bg-fyaril-teal/10 p-4">
+                <h4 className="font-medium text-lg">On Demand</h4>
+              </div>
+              <div className="p-4">
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Request payment withdrawal anytime</li>
+                  <li>Minimum withdrawal amount: ₹25,000</li>
+                  <li>Available for Premium plan sellers only</li>
+                  <li>Processing fee: 1% of withdrawal amount</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Setting Up Your Payment Account</h3>
+          
+          <Tabs defaultValue="indian" className="w-full">
+            <TabsList className="mb-4">
+              <TabsTrigger value="indian">Indian Bank Account</TabsTrigger>
+              <TabsTrigger value="international">International Account</TabsTrigger>
+            </TabsList>
+            <TabsContent value="indian" className="space-y-4">
+              <p className="text-gray-700">For sellers with Indian bank accounts, please provide:</p>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Account holder name (as per bank records)</li>
+                <li>Bank name and branch</li>
+                <li>Account number</li>
+                <li>IFSC code</li>
+                <li>PAN number</li>
+                <li>GST number (if applicable)</li>
+              </ul>
+              <p className="text-gray-700 mt-4">You'll need to verify your bank account by submitting a canceled cheque or bank statement.</p>
+            </TabsContent>
+            <TabsContent value="international" className="space-y-4">
+              <p className="text-gray-700">For sellers with international bank accounts, please provide:</p>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Account holder name (as per bank records)</li>
+                <li>Bank name and address</li>
+                <li>Account number/IBAN</li>
+                <li>SWIFT/BIC code</li>
+                <li>Routing number (if applicable)</li>
+                <li>Tax ID or business registration number</li>
+              </ul>
+              <p className="text-gray-700 mt-4">Additional verification may be required for international accounts. Contact Fyaril support for assistance.</p>
+            </TabsContent>
+          </Tabs>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Currency Conversion</h3>
+          
+          <div className="space-y-4">
+            <p className="text-gray-700">Fyaril handles currency conversion between Euro (customer payment) and your local currency (seller payout):</p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                <h4 className="font-medium text-lg mb-2">Exchange Rates</h4>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>We use mid-market exchange rates from recognized financial institutions</li>
+                  <li>Rates are updated daily</li>
+                  <li>Current exchange rates are visible in your dashboard</li>
+                </ul>
+              </div>
+              <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                <h4 className="font-medium text-lg mb-2">Currency Options</h4>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>Receive payments in INR (default for Indian sellers)</li>
+                  <li>Receive payments in EUR (requires EU bank account)</li>
+                  <li>Receive payments in USD (available for premium sellers)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+          <h3 className="text-xl font-semibold mb-4">Fees & Deductions</h3>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-fyaril-teal/10">
+                  <th className="border border-fyaril-teal/20 p-3 text-left">Fee Type</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Basic Plan</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Standard Plan</th>
+                  <th className="border border-fyaril-teal/20 p-3 text-center">Premium Plan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-fyaril-teal/20 p-3">Commission</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">15%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">10%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">5%</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">Payment Processing</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">2%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1.5%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1%</td>
+                </tr>
+                <tr>
+                  <td className="border border-fyaril-teal/20 p-3">Currency Conversion</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1.5%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1%</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">0.5%</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-fyaril-teal/20 p-3">On-Demand Withdrawal</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">N/A</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">N/A</td>
+                  <td className="border border-fyaril-teal/20 p-3 text-center">1%</td>
                 </tr>
               </tbody>
             </table>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 mt-6">
-            <h3 className="text-xl font-medium mb-4">Getting the Verified Badge</h3>
-            <p>These are the documents required for getting the verified badge:</p>
-            <ul className="list-disc list-inside mt-2 space-y-2">
-              <li>Business Registration - Upload a copy of the business registration from your company name as it appears on the business registration document. This document should have the complete company name, management information, ownership, structure, business address (must be physical address, not postal box), registration date, registration number and the name/s of the owner/s and the date of issue.</li>
-              <li>Business VAT Registration - Upload a copy of the sales tax registration of your business when it is applicable in your jurisdiction. The sales tax number must be valid. Your business must be registered for the state/province where you will be making your sales from.</li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Uploading Documents</h3>
-            <p>To upload documents, follow these steps:</p>
-            <ol className="list-decimal list-inside space-y-2 ml-2">
-              <li>Login to your vendor account by passing the partner button, you need to submit the application in order to get your badge.</li>
-              <li>Upload your documents in the future after you have made the login.</li>
-            </ol>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>If you have any additional queries don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-            </ul>
-          </div>
+          <p className="mt-4 text-gray-600">Note: All fees are deducted automatically before funds are deposited into your seller account.</p>
         </div>
-      )
-    },
-    "product-listing": {
-      title: "Product Listing",
-      lastUpdated: "May 9, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Uploading Products via Excel on Fyaril.com</h3>
-            <p>This guide will help you through the process of efficiently uploading multiple products to your seller account using a pre-designed Excel file. To reduce the data entry time, please download and use the sample Excel file.</p>
-            
-            <div className="aspect-w-16 aspect-h-9 mt-6 mb-6">
-              <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500 text-center">Video Tutorial Placeholder</p>
-              </div>
-            </div>
-            
-            <h4 className="text-lg font-medium mt-6 mb-3">Step-by-Step Instructions:</h4>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                Log in to the Fyaril Portal using your login ID and password. Click on the Administrator tab on the top.
-              </li>
-              <li className="ml-2">
-                Hover over Import/Export. Select the product template dropdown from the administrative dropdown, here is what it looks like and how to select it.
-              </li>
-              <li className="ml-2">
-                Click Excel Template. On the import/export page, what I need to do if you are a first-time store administrator? You need to select the first option on the administrative portal; this is labeled "PRODUCT A"-"Product Template". From here you need to click download.
-              </li>
-              <li className="ml-2">
-                Once the file downloads to your computer, you can open the file with Excel. Check the required fields for your categories.
-              </li>
-              <li className="ml-2">
-                Input the Data using Excel. Enter all the information from your products here. Template and guide are provided in the Excel sheet.
-              </li>
-              <li className="ml-2">
-                Save and Close the Excel file after completing from your computer/device.
-              </li>
-              <li className="ml-2">
-                Go to Import and click on the PRODUCT icon. This is located in the same area where I kept the PRODUCT A Template.
-              </li>
-              <li className="ml-2">
-                Browse to the file you have saved locally. Click it, and uploading from your computer.
-              </li>
-            </ol>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <AlertCircle className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle className="text-fyaril-blue">Withdrawal Help</AlertTitle>
+          <AlertDescription>
+            Need help with payment withdrawals? Contact our finance team at payments@fyaril.com or through your seller dashboard.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'faq': {
+    title: 'Seller General FAQ',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Seller FAQ</h2>
+        <p className="text-gray-700">Find answers to commonly asked questions about selling on Fyaril.</p>
+        
+        <div className="space-y-4 mt-6">
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">I want to sell my products in Europe. How can I sell on Fyaril?</h3>
+            <p className="text-gray-700">
+              As a first step, apply to become a seller. This will help us create a seller account for you. We will share login details to your registered email address if your credentials are valid. For next steps, you can follow instructions in your account.
+            </p>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Important Tips for Product Listings</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li className="ml-2">Use high-quality images with proper lighting.</li>
-              <li className="ml-2">Write detailed descriptions that highlight key features.</li>
-              <li className="ml-2">Set competitive prices based on market research.</li>
-              <li className="ml-2">Choose appropriate categories for better visibility.</li>
-              <li className="ml-2">Include all relevant specifications in your listing.</li>
-            </ul>
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">How can selling on Fyaril help my Business?</h3>
+            <p className="text-gray-700">
+              In 2021, 3 out of 4 Europeans bought something on an e-commerce site. Seller on Fyaril can sell to 748 million European population which includes 5.5 million Indian and south Asian origin consumers. Fyaril opens up global opportunities, particularly entire European region as an additional market for your existing business with minimal effort from you.
+            </p>
           </div>
           
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <h3 className="text-xl font-medium text-fyaril-blue mb-3">Please note</h3>
-            <p>Many products can face issues on Fyaril if they have a stolen <a href="#" className="text-fyaril-blue underline">Product Approval</a>. The Excel import option won't make or break your inventory, upload or individual product listings. It is available as a seller feature to quickly process batches of the merchandise. This is standard quality control step.</p>
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">Do I need European bank account or VAT number to sell on Fyaril?</h3>
+            <p className="text-gray-700">
+              No! It is not necessary to have a bank account or VAT number in Europe. You can become a supplier on Fyaril's Global marketplace with your Indian GST / PAN numbers. When you are ready for international expansion, we will help you to create a setup in Europe.
+            </p>
+            <p className="text-gray-700 mt-2">
+              However, if you already have EU VAT number, you can be a seller on Fyaril as a European vendor with your European credentials.
+            </p>
+            <p className="text-gray-700 mt-2">
+              You just need to receive order – pack goods – handover package to the delivery partner.
+            </p>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need More Help?</h3>
-            <p>If you encounter any difficulties please points out the upload process.</p>
-            <p>You can also contact our support team through sellers@fyaril.com.</p>
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">We are already selling on an e-commerce marketplaces in India. Can I still sell on Fyaril?</h3>
+            <p className="text-gray-700">
+              Yes! In fact, you are a step closer to selling globally on Fyaril. Just apply for a vendor account, upload digital inventory through vendor panel and start receiving orders from Europe.
+            </p>
           </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">I own a brand and sell my products on e-commerce marketplaces in India and/or abroad. Can I sell on Fyaril?</h3>
+            <p className="text-gray-700">
+              Yes! In fact, Fyaril is created with a vision to take trusted Indian brands Global. You can start by signing up as B2C vendor and as your sales grow, you will be able to store goods in Europe for quick fulfilment. Fyaril is a fantastic platform to learn about new geography, customer preferences and grow in a risk & investment free manner.
+            </p>
+            <p className="text-gray-700 mt-2">
+              Just apply for a vendor account, Complete KYC for a brand. You will receive Top Brand badge which will be displayed on your every product page.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">What role does Fyaril play in B2B model?</h3>
+            <p className="text-gray-700">
+              Fyaril allows you to manage everything in one place, from customer requirement to order fulfillment. With the platform that's accessible and available to your audience/customers, Fyaril B2B ecommerce is a great chance to cross-sell and up-sell to existing buyers. With options for automated sales processes between businesses, suppliers and distributors, our ecommerce platform can help streamline your B2B operations and improve the customer experience.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">Why is so much documentation required for KYC?</h3>
+            <p className="text-gray-700">
+              We have to follow compliances for export in India and abroad. Also we need to check all the details if its available with the vendor to ensure smooth flow for business.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">Does Fyaril market products under Vendors Brand or it sells under the name of FYARIL?</h3>
+            <p className="text-gray-700">
+              We cater to all kind of product module like white label, private label, wholesale and branded products. So the brand name and packing all depends on the kind of product usually we do not change Vendor name or branding. Marketing and sale is done with Vendor name /brand. We do add our Merchandising along with it.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">Once vendors take subscription plans how fast will they start receiving orders?</h3>
+            <p className="text-gray-700">
+              This depends on the plan the vendor has subscribed for as the activity is planned according to it. Though we don't commit any time line for orders but it all depends on factors such as type of product, Targeted regions, demand for the product etc.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">In case if the product is returned (internationally) who will bear the shipping cost?</h3>
+            <p className="text-gray-700">
+              Fyaril does not allow returns on B2B orders unless there is a manufacturing defect. Fyaril coordinates discussions between buyer and seller in case of an issue in delivery.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+            <h3 className="text-xl font-semibold text-fyaril-blue mb-2">Returns: What happens if a customer returns an item?</h3>
+            <p className="text-gray-700">
+              Our goal is to minimise returns and maximise profits for you. To achieve, we discourage returning goods to India as this may not be cost effective solution unless value of shipment is large enough to justify administration needed. To ease life of vendor on returns, we offer return credits to each vendor depending on the credit rating or 10% of monthly sales whichever is lower after first 6 months on the platform.
+            </p>
+            <p className="text-gray-700 mt-2">
+              Once you have reached return rate beyond credit limit then, some correction in sales approach may be needed. This means, we will have review returned products along with the vendor to find ways to reduce return rate, customers with highest return rate will be restricted and Fyaril will offer free storage of returned goods for 30 - 60 days in Europe. You only pay for repackaging if needed. You will have opportunity to sell your goods during this time.
+            </p>
+            <p className="text-gray-700 mt-2">
+              After free storage period is over, you will a choice either to start paying for the storage or decide to recycle the item or import back to India. For defective items received by the customers, Fyaril will charge a fee to recycle the item.
+            </p>
+            <p className="text-gray-700 mt-2">
+              Sellers should upload terms and conditions for their store on Fyaril seller profile. During the checkout process customers explicitly need to agree to seller's terms and conditions. Sellers can mention store's return policy in terms and conditions.
+            </p>
+          </div>
+          
+          {/* More FAQs can be added here */}
         </div>
-      )
-    },
-    "payment": {
-      title: "Payment Withdrawal",
-      lastUpdated: "May 8, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>To conduct a payment withdrawal as a vendor, follow the steps listed below:</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Step-by-Step Payment Withdrawal Process</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                Log in to My Vendor account.
-              </li>
-              <li className="ml-2">
-                Go to My Seller > Accounting. Here you will be able to see transaction details, and this is also where you can apply to withdraw payments.
-                <div className="mt-3 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Accounting Section" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "250px" }}
-                  />
-                </div>
-              </li>
-              <li className="ml-2">
-                Before you apply for the payment withdrawal, ensure the amount you have chosen to withdraw. This amount must match the bank amount in fields related to Fyaril sales invoice. If the amount does not match exactly, your withdrawal request cannot be processed.
-              </li>
-              <li className="ml-2">
-                Once your withdrawal request is placed, the payment will be credited to your bank account as soon as the order becomes qualified for payout.
-              </li>
-            </ol>
-          </div>
-          
-          <div className="bg-fyaril-teal/10 p-6 rounded-xl border border-fyaril-teal/30">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <Check className="h-6 w-6 text-green-500" />
-              </div>
-              <div className="ml-3">
-                <h3 className="text-lg font-medium text-gray-900">Account Requirements</h3>
-                <div className="mt-2 text-sm text-gray-600">
-                  <p>To ensure smooth processing of your payment withdrawal, make sure your account has:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Completed KYC verification</li>
-                    <li>Valid bank account details</li>
-                    <li>Active stripe connection (for automatic transfers)</li>
-                    <li>No ongoing disputes or issues with pending orders</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>If you have any additional queries don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-            </ul>
-          </div>
-          
-          <div className="mt-6 p-5 rounded-lg bg-fyaril-teal/10 border border-fyaril-teal/30">
-            <h3 className="text-xl font-medium text-fyaril-blue mb-3">Was the information found helpful?</h3>
-            <div className="flex space-x-4">
-              <Button variant="outline" className="border-fyaril-blue text-fyaril-blue hover:bg-fyaril-blue hover:text-white">
-                Yes
-              </Button>
-              <Button variant="outline" className="border-fyaril-blue text-fyaril-blue hover:bg-fyaril-blue hover:text-white">
-                No
-              </Button>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    "contact-admin": {
-      title: "Contact Fyaril Administrator",
-      lastUpdated: "May 7, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-6">
-          <p>Use specific communication channels to ensure relevant information is shared as quickly as possible with the right people.</p>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Contacting Administrators as a Vendor</h3>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="ml-2">
-                To contact administrators as a vendor, login with your login ID and password through the Seller Partner dropdown menu.
-              </li>
-              <li className="ml-2">
-                Click on the 'My Seller' dropdown menu and make your way to the Message Center.
-                <div className="mt-3 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Message Center Navigation" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
-              </li>
-              <li className="ml-2">
-                On the right of this page you should find a button. This will take you to the 'Contact Administrator' page.
-                <div className="mt-3 mb-4">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Administrator Button" 
-                    className="rounded-lg border border-gray-200 max-w-full h-auto"
-                    style={{ maxHeight: "200px" }}
-                  />
-                </div>
-              </li>
-              <li className="ml-2">
-                Once on this page, fill in the subject matter you wish to discuss and your detailed message in the box below:
-                <div className="mt-3 mb-4 p-4 bg-white rounded-lg border border-gray-300">
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Contact administrator</label>
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject:</label>
-                    <div className="border border-gray-300 rounded h-8"></div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Your message is (not required):</label>
-                    <div className="border border-gray-300 rounded h-24"></div>
-                  </div>
-                </div>
-              </li>
-              <li className="ml-2">
-                Click on the SEND button once you have finished filling all the sections of the page. This will send your message to the Fyaril team and we will get back to you as soon as possible.
-              </li>
-            </ol>
-          </div>
-          
-          <div className="bg-fyaril-blue/10 p-6 rounded-xl border border-fyaril-blue/20">
-            <h3 className="text-lg font-medium text-fyaril-blue mb-3">Contact Methods</h3>
-            <div className="space-y-3">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-fyaril-blue">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                </div>
-                <div className="ml-3 text-sm">
-                  <p className="text-gray-700 font-medium">Email Support</p>
-                  <p className="text-gray-600">Send us an email at sellers@fyaril.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-fyaril-blue">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="ml-3 text-sm">
-                  <p className="text-gray-700 font-medium">Help Center</p>
-                  <p className="text-gray-600">Browse our extensive knowledge base</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-fyaril-blue">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="ml-3 text-sm">
-                  <p className="text-gray-700 font-medium">Message Center</p>
-                  <p className="text-gray-600">Send messages directly through your seller account</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-4">Need Additional Help?</h3>
-            <p>If you have any additional queries don't hesitate to get in touch with us through:</p>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>My seller > Message Center, or you can email us on sellers@fyaril.com.</li>
-            </ul>
-          </div>
-        </div>
-      )
-    },
-    "faq": {
-      title: "Seller General FAQ",
-      lastUpdated: "May 5, 2025",
-      author: "Fyaril Support Team",
-      content: (
-        <div className="space-y-8">
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-            <h3 className="text-xl font-medium mb-6">Frequently Asked Questions</h3>
-            
-            <div className="space-y-6">
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">I want to sell my products on Fyaril. How can I sell on Fyaril?</h4>
-                <p className="mt-2 text-gray-700">
-                  As a first step, apply to become a seller. This will help us create a unique account for you. You will then receive an email with login credentials and a password reset link. Log into your Fyaril account, fill out your information in your vendor profile, and apply for seller verification.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">How can I verify my Fyaril Seller Business Account?</h4>
-                <p className="mt-2 text-gray-700">
-                  After applying for a seller account, your account will go through our partnership review. After your Fyaril seller account is approved, you'll receive an email letting you know that your account is active and good to go. This will redirect you to your vendor panel, where you can begin working with us!
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">Do I need a bank account to place orders on Fyaril?</h4>
-                <p className="mt-2 text-gray-700">
-                  Yes, it is not mandatory to have a bank account to set up a basic account on Fyaril. For selling products, however, you can't sell anything on Fyaril without a proper vendor verification with your payment details.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">We are already selling on an ecommerce marketplace in India. Can I still sell on Fyaril?</h4>
-                <p className="mt-2 text-gray-700">
-                  Yes! You can use a step-by-step listing guide on Fyaril. Just apply for the vendor account, upload a catalog of products and you're good to go!
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">I own a brand and sell my products on an ecommerce marketplace in India which doesn't. Can I still sell on Fyaril?</h4>
-                <p className="mt-2 text-gray-700">
-                  Yes! In fact Fyaril is created specifically to serve named Indian brands. Fyaril has been by starting to work with the known Indian companies that sell products both online and offline. Fyaril is a platform to sell online both domestic and global markets and gives you more business than expected.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-lg text-fyaril-blue">How soon can I sell after setting up my Seller Account?</h4>
-                <p className="mt-2 text-gray-700">
-                  Fyaril allows you to manage everything in one place. After customer approves the order, fulfillment begins the same day and you can direct all your sales related queries to one person through the system. The platform is designed to give you the best possible selling experience.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
-            <div className="bg-fyaril-blue px-6 py-4">
-              <h3 className="text-xl font-bold text-white">Have more questions?</h3>
-            </div>
-            <div className="px-6 py-4">
-              <p className="text-gray-700 mb-4">
-                If you couldn't find the answer to your question, our support team is here to help you.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-fyaril-blue hover:bg-fyaril-darkblue">
-                  Contact Support
-                </Button>
-                <Button variant="outline" className="border-fyaril-blue text-fyaril-blue hover:bg-fyaril-blue hover:text-white">
-                  Browse Knowledge Base
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-  };
+      </div>
+    )
+  }
+};
+
+const SellerDetail = () => {
+  const { slug } = useParams();
+  const pageData = sellerPages[slug as keyof typeof sellerPages];
   
-  const currentContent = slug ? content[slug] : null;
-  
-  if (!currentContent) {
+  if (!pageData) {
     return (
       <MainLayout>
-        <div className="container mx-auto text-center py-12">
-          <h2 className="text-2xl font-bold mb-4">Page Not Found</h2>
-          <p className="mb-6">The page you're looking for doesn't exist or has been moved.</p>
-          <Link to="/sellers">
-            <Button>Back to Seller Help Center</Button>
-          </Link>
+        <div className="container mx-auto py-8">
+          <h1 className="text-2xl font-bold mb-4">Page Not Found</h1>
+          <p>The requested seller help page does not exist.</p>
         </div>
       </MainLayout>
     );
   }
-  
+
   return (
     <MainLayout>
-      <div className="container mx-auto max-w-4xl">
-        <Link 
-          to="/sellers" 
-          className="flex items-center gap-2 text-fyaril-blue hover:underline mb-6"
-        >
-          <ArrowLeft size={16} />
-          <span>Back to Seller Help Center</span>
-        </Link>
+      <div className="container mx-auto py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-fyaril-blue">{pageData.title}</h1>
+          <div className="h-1 w-20 bg-fyaril-teal mt-2"></div>
+        </div>
         
-        <article className="bg-white p-8 rounded-xl shadow-sm">
-          <h1 className="text-3xl font-bold mb-6">{currentContent.title}</h1>
-          
-          <div className="flex items-center gap-6 text-sm text-gray-500 mb-8 pb-6 border-b">
-            <div className="flex items-center gap-2">
-              <Calendar size={16} />
-              <span>Last updated: {currentContent.lastUpdated}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <User size={16} />
-              <span>{currentContent.author}</span>
-            </div>
-          </div>
-          
-          <div className="prose prose-lg max-w-none">
-            {currentContent.content}
-          </div>
-        </article>
+        {pageData.content}
       </div>
     </MainLayout>
   );

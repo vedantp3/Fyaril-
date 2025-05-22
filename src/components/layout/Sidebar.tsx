@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -10,7 +10,9 @@ import {
   Package, 
   FileText, 
   Truck, 
-  Wallet
+  Wallet,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -77,10 +79,29 @@ const Sidebar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   
-  // Determine which user type section is active
+  // Track expanded sections manually
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  
+  // Determine which user type section is currently in view
   const activeUserType = userTypes.find(type => 
     currentPath === type.path || currentPath.startsWith(`${type.path}/`)
   );
+  
+  // If a user is on a subpage, ensure that section is expanded
+  React.useEffect(() => {
+    if (activeUserType && !expandedSections.includes(activeUserType.type)) {
+      setExpandedSections(prev => [...prev, activeUserType.type]);
+    }
+  }, [activeUserType, expandedSections]);
+  
+  // Toggle section expansion
+  const toggleSection = (type: string) => {
+    setExpandedSections(prev => 
+      prev.includes(type) 
+        ? prev.filter(t => t !== type) 
+        : [...prev, type]
+    );
+  };
   
   return (
     <aside className="w-64 bg-white border-r border-fyaril-teal/20 h-[calc(100vh-64px)] overflow-y-auto flex-shrink-0 hidden md:block">
@@ -117,38 +138,47 @@ const Sidebar = () => {
           <div className="space-y-1">
             {userTypes.map((type) => (
               <React.Fragment key={type.type}>
-                <Link 
-                  to={type.path}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
-                    (currentPath === type.path || currentPath.startsWith(`${type.path}/`))
-                      ? "bg-gradient-to-r from-fyaril-blue to-fyaril-teal text-white font-medium" 
-                      : "text-gray-700 hover:bg-fyaril-teal/20"
+                <div className="flex flex-col">
+                  <button 
+                    onClick={() => toggleSection(type.type)}
+                    className={cn(
+                      "flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors w-full",
+                      (currentPath === type.path || currentPath.startsWith(`${type.path}/`))
+                        ? "bg-gradient-to-r from-fyaril-blue to-fyaril-teal text-white font-medium" 
+                        : "text-gray-700 hover:bg-fyaril-teal/20"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <type.icon size={20} />
+                      <span>{type.label}</span>
+                    </div>
+                    {expandedSections.includes(type.type) ? (
+                      <ChevronDown size={16} />
+                    ) : (
+                      <ChevronRight size={16} />
+                    )}
+                  </button>
+                  
+                  {/* Show sub-items if this section is expanded */}
+                  {expandedSections.includes(type.type) && (
+                    <div className="pl-10 space-y-1 mt-1 mb-2">
+                      {type.items.map((subItem) => (
+                        <Link
+                          key={subItem.path}
+                          to={subItem.path}
+                          className={cn(
+                            "block text-sm py-1.5 px-3 rounded-md transition-colors",
+                            currentPath === subItem.path
+                              ? "bg-fyaril-teal/30 text-fyaril-blue font-medium" 
+                              : "text-gray-600 hover:bg-fyaril-teal/20"
+                          )}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                >
-                  <type.icon size={20} />
-                  <span>{type.label}</span>
-                </Link>
-                
-                {/* Show sub-items if this user type is active */}
-                {activeUserType?.type === type.type && (
-                  <div className="pl-10 space-y-1 mt-1 mb-2">
-                    {type.items.map((subItem) => (
-                      <Link
-                        key={subItem.path}
-                        to={subItem.path}
-                        className={cn(
-                          "block text-sm py-1.5 px-3 rounded-md transition-colors",
-                          currentPath === subItem.path
-                            ? "bg-fyaril-teal/30 text-fyaril-blue font-medium" 
-                            : "text-gray-600 hover:bg-fyaril-teal/20"
-                        )}
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                </div>
               </React.Fragment>
             ))}
           </div>
