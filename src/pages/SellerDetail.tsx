@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -847,7 +846,6 @@ const SellerDetail = () => {
         </div>
       )
     },
-    // Add more content entries for other pages as needed
   };
   
   const currentContent = slug ? content[slug] : null;

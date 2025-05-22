@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SellerHelp from "./pages/SellerHelp";
 import SellerDetail from "./pages/SellerDetail";
+import GeneralFAQ from "./pages/GeneralFAQ";
 
 const queryClient = new QueryClient();
 
@@ -24,20 +25,8 @@ const App = () => (
           <Route path="/sellers" element={<SellerHelp />} />
           <Route path="/sellers/:slug" element={<SellerDetail />} />
           
-          {/* B2B routes - these will need corresponding components */}
-          <Route path="/b2b" element={<NotFound />} />
-          <Route path="/b2b/:slug" element={<NotFound />} />
-          
-          {/* B2C routes - these will need corresponding components */}
-          <Route path="/b2c" element={<NotFound />} />
-          <Route path="/b2c/:slug" element={<NotFound />} />
-          
-          {/* Partner routes - these will need corresponding components */}
-          <Route path="/partners" element={<NotFound />} />
-          <Route path="/partners/:slug" element={<NotFound />} />
-          
           {/* General routes */}
-          <Route path="/faq" element={<NotFound />} />
+          <Route path="/faq" element={<GeneralFAQ />} />
           <Route path="/about" element={<NotFound />} />
           
           <Route path="*" element={<NotFound />} />
