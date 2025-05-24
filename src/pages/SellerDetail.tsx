@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Package, CreditCard, Truck, FileText, Users, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Content for different seller pages
@@ -99,21 +98,15 @@ const sellerPages = {
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   List up to 50 products
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Basic analytics
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Standard support
                 </li>
               </ul>
@@ -135,27 +128,19 @@ const sellerPages = {
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   List up to 500 products
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Advanced analytics
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Priority support
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Marketing tools
                 </li>
               </ul>
@@ -176,27 +161,19 @@ const sellerPages = {
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Unlimited products
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Advanced analytics + API access
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   24/7 dedicated support
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                  </svg>
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                   Featured placement
                 </li>
               </ul>
@@ -294,10 +271,7 @@ const sellerPages = {
           <div className="space-y-4">
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"></path>
-                  <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                </svg>
+                <FileText className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Product Title</h4>
@@ -307,13 +281,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
+                <FileText className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Product Description</h4>
@@ -323,10 +291,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
+                <Package className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Product Categories</h4>
@@ -336,11 +301,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
+                <Package className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Variants</h4>
@@ -350,10 +311,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
-                </svg>
+                <CreditCard className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Pricing</h4>
@@ -421,10 +379,7 @@ const sellerPages = {
           <div className="space-y-4">
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
+                <Shield className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">CE Marking</h4>
@@ -434,9 +389,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
+                <FileText className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">Language Requirements</h4>
@@ -446,10 +399,7 @@ const sellerPages = {
             
             <div className="flex gap-4 items-start">
               <div className="bg-fyaril-blue text-white p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <Users className="h-5 w-5" />
               </div>
               <div>
                 <h4 className="font-medium text-lg">GDPR Compliance</h4>
@@ -505,7 +455,7 @@ const sellerPages = {
                 <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-xl z-10">3</div>
                 <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
                   <h4 className="font-medium text-lg mb-2">Packaging</h4>
-                  <p className="text-gray-600">Package the items securely according to Fyaril's <a href="/sellers/packaging" className="text-fyaril-blue hover:underline">packaging guidelines</a> to ensure they arrive in perfect condition. Include the packing slip generated from your seller dashboard.</p>
+                  <p className="text-gray-600">Package the items securely according to Fyaril's packaging guidelines to ensure they arrive in perfect condition. Include the packing slip generated from your seller dashboard.</p>
                 </div>
               </div>
               
@@ -984,8 +934,6 @@ const sellerPages = {
               Sellers should upload terms and conditions for their store on Fyaril seller profile. During the checkout process customers explicitly need to agree to seller's terms and conditions. Sellers can mention store's return policy in terms and conditions.
             </p>
           </div>
-          
-          {/* More FAQs can be added here */}
         </div>
       </div>
     )
