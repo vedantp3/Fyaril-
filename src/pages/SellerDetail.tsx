@@ -3,11 +3,1277 @@ import { useParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle, Package, CreditCard, Truck, FileText, Users, Shield } from 'lucide-react';
+import { AlertCircle, CheckCircle, Package, CreditCard, Truck, FileText, Users, Shield, Star, Award, Camera, Upload, Eye, Edit, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Content for different seller pages
 const sellerPages = {
+  'register': {
+    title: 'Register as a Vendor',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Register as a Vendor on Fyaril</h2>
+        <p className="text-gray-700">Join thousands of vendors selling to European customers. Follow these steps to create your vendor account and start your global selling journey.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Registration Process</h3>
+          
+          <div className="relative pb-6">
+            {/* Timeline */}
+            <div className="absolute left-[30px] top-0 h-full w-1 bg-fyaril-teal/30"></div>
+            
+            {/* Steps */}
+            <div className="space-y-8 relative">
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">1</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Basic Information</h4>
+                  <p className="text-gray-600">Provide your business name, contact details, and primary business category. This initial step takes about 5 minutes to complete.</p>
+                  <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+                    <li>Business name and address</li>
+                    <li>Contact person details</li>
+                    <li>Phone and email verification</li>
+                    <li>Primary product categories</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">2</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Document Upload</h4>
+                  <p className="text-gray-600">Upload required business documents for verification. All documents should be clear and valid.</p>
+                  <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+                    <li>Business registration certificate</li>
+                    <li>PAN card (for Indian businesses)</li>
+                    <li>GST registration (if applicable)</li>
+                    <li>Bank account details</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">3</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Application Review</h4>
+                  <p className="text-gray-600">Our team reviews your application within 2-3 business days. We may contact you for additional information if needed.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-6 items-start relative">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-fyaril-blue text-white flex items-center justify-center font-bold text-lg z-10">4</div>
+                <div className="bg-fyaril-teal/10 p-4 rounded-lg flex-grow">
+                  <h4 className="font-medium text-lg mb-2">Account Activation</h4>
+                  <p className="text-gray-600">Once approved, you'll receive your seller dashboard credentials and can start listing your products immediately.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Eligibility Requirements</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2">For Indian Businesses</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Valid business registration</li>
+                <li>PAN card mandatory</li>
+                <li>GST registration (for eligible businesses)</li>
+                <li>Indian bank account</li>
+                <li>Minimum 6 months in business</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2">For International Businesses</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li>Valid business license in home country</li>
+                <li>Tax identification number</li>
+                <li>Business bank account</li>
+                <li>English language capability</li>
+                <li>Ability to export products</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Registration Tips</h3>
+          
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <CheckCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Accurate Information</h4>
+                <p className="text-gray-600">Ensure all information matches your official business documents to avoid delays in verification.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <CheckCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Document Quality</h4>
+                <p className="text-gray-600">Upload high-quality, clear images of all documents. Blurry or unclear documents will be rejected.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <CheckCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Contact Information</h4>
+                <p className="text-gray-600">Provide a valid email and phone number as we may need to contact you during the verification process.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <AlertCircle className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle>Ready to Register?</AlertTitle>
+          <AlertDescription>
+            Start your vendor registration today and join the Fyaril marketplace to reach European customers.
+          </AlertDescription>
+          <Button className="mt-3 bg-fyaril-blue hover:bg-fyaril-blue/80">Start Registration</Button>
+        </Alert>
+      </div>
+    )
+  },
+  'kyc': {
+    title: 'Complete Seller KYC',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Complete Seller KYC</h2>
+        <p className="text-gray-700">Know Your Customer (KYC) verification is mandatory for all sellers on Fyaril. This ensures compliance with international trade regulations and builds trust with customers.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Required Documents</h3>
+          
+          <Tabs defaultValue="individual" className="w-full">
+            <TabsList className="mb-4">
+              <TabsTrigger value="individual">Individual/Proprietorship</TabsTrigger>
+              <TabsTrigger value="company">Company/LLP</TabsTrigger>
+              <TabsTrigger value="partnership">Partnership</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="individual" className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <UserCheck className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Identity Proof
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>PAN Card (mandatory)</li>
+                    <li>Aadhaar Card</li>
+                    <li>Passport</li>
+                    <li>Driving License</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <FileText className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Address Proof
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Utility Bill (last 3 months)</li>
+                    <li>Bank Statement</li>
+                    <li>Rental Agreement</li>
+                    <li>Property Tax Receipt</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <CreditCard className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Bank Details
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Cancelled Cheque</li>
+                    <li>Bank Statement (last 3 months)</li>
+                    <li>Account opening form</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <Package className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Business Proof
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>GST Certificate (if applicable)</li>
+                    <li>Trade License</li>
+                    <li>Shop & Establishment License</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="company" className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <FileText className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Company Documents
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Certificate of Incorporation</li>
+                    <li>Memorandum of Association</li>
+                    <li>Articles of Association</li>
+                    <li>Board Resolution</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <Users className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Director Details
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Director's PAN Cards</li>
+                    <li>Director's Aadhaar Cards</li>
+                    <li>Director's Address Proof</li>
+                    <li>Director Identification Number (DIN)</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <Shield className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Compliance Documents
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>GST Registration Certificate</li>
+                    <li>PAN Card of Company</li>
+                    <li>TAN Certificate</li>
+                    <li>IEC Code (for exporters)</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <CreditCard className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Bank Account
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Current Account Details</li>
+                    <li>Bank Statements (6 months)</li>
+                    <li>Account Opening Form</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="partnership" className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <FileText className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Partnership Documents
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Partnership Deed</li>
+                    <li>Registration Certificate</li>
+                    <li>PAN Card of Partnership</li>
+                    <li>GST Registration</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2 flex items-center">
+                    <Users className="mr-2 h-5 w-5 text-fyaril-blue" />
+                    Partner Details
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>All Partners' PAN Cards</li>
+                    <li>All Partners' Aadhaar Cards</li>
+                    <li>Address Proof of Partners</li>
+                    <li>Partnership Capital Contribution</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">KYC Verification Process</h3>
+          
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 1</div>
+              <div>
+                <h4 className="font-medium text-lg">Document Upload</h4>
+                <p className="text-gray-600">Upload clear, high-quality images of all required documents through your seller dashboard.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 2</div>
+              <div>
+                <h4 className="font-medium text-lg">Initial Review</h4>
+                <p className="text-gray-600">Our KYC team performs an initial review within 24-48 hours and may request additional documents.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 3</div>
+              <div>
+                <h4 className="font-medium text-lg">Verification Call</h4>
+                <p className="text-gray-600">A verification call will be scheduled to confirm business details and answer any questions.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 4</div>
+              <div>
+                <h4 className="font-medium text-lg">Final Approval</h4>
+                <p className="text-gray-600">Once verified, your KYC status will be updated and you can start selling with full features.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Document Guidelines</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2 text-green-700">✓ Do's</h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Use high-resolution images (min 1080px)</li>
+                <li>Ensure all text is clearly readable</li>
+                <li>Upload original documents</li>
+                <li>Provide current, valid documents</li>
+                <li>Match names across all documents</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2 text-red-700">✗ Don'ts</h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Submit blurry or unclear images</li>
+                <li>Upload expired documents</li>
+                <li>Use photocopies as primary documents</li>
+                <li>Provide documents with different names</li>
+                <li>Submit incomplete or torn documents</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-amber-50 border-amber-300">
+          <AlertCircle className="h-4 w-4 text-amber-500" />
+          <AlertTitle className="text-amber-800">KYC Status</AlertTitle>
+          <AlertDescription className="text-amber-700">
+            KYC verification typically takes 3-5 business days. You can track your KYC status in your seller dashboard.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'edit-profile': {
+    title: 'Edit My Vendor Profile',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Edit My Vendor Profile</h2>
+        <p className="text-gray-700">Keep your vendor profile updated to maintain credibility and ensure smooth business operations. Your profile information is visible to customers and affects your seller reputation.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Profile Sections You Can Edit</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Edit className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Basic Information
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Business name and description</li>
+                <li>Contact information</li>
+                <li>Business address</li>
+                <li>Website and social media links</li>
+                <li>Business hours</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Package className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Product Categories
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Primary product categories</li>
+                <li>Secondary categories</li>
+                <li>Brand information</li>
+                <li>Manufacturing capabilities</li>
+                <li>Certifications</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Truck className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Shipping & Policies
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Shipping preferences</li>
+                <li>Return policy</li>
+                <li>Refund policy</li>
+                <li>Terms and conditions</li>
+                <li>Processing times</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <CreditCard className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Payment Settings
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Bank account details</li>
+                <li>Payment schedule preferences</li>
+                <li>Currency preferences</li>
+                <li>Tax information</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">How to Edit Your Profile</h3>
+          
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">1</div>
+              <div>
+                <h4 className="font-medium text-lg">Access Your Dashboard</h4>
+                <p className="text-gray-600">Log into your seller dashboard and navigate to the "Profile" or "Account Settings" section.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">2</div>
+              <div>
+                <h4 className="font-medium text-lg">Select Section to Edit</h4>
+                <p className="text-gray-600">Choose the specific section you want to update from the profile menu.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">3</div>
+              <div>
+                <h4 className="font-medium text-lg">Make Changes</h4>
+                <p className="text-gray-600">Update the information carefully and ensure all details are accurate and current.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">4</div>
+              <div>
+                <h4 className="font-medium text-lg">Save and Review</h4>
+                <p className="text-gray-600">Save your changes and review the updated profile. Some changes may require verification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Important Notes</h3>
+          
+          <div className="space-y-4">
+            <Alert className="bg-blue-50 border-blue-300">
+              <AlertCircle className="h-4 w-4 text-blue-500" />
+              <AlertDescription className="text-blue-700">
+                Some profile changes may require re-verification and could take 1-2 business days to be approved.
+              </AlertDescription>
+            </Alert>
+            
+            <Alert className="bg-amber-50 border-amber-300">
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+              <AlertDescription className="text-amber-700">
+                Changes to bank account details require additional verification and may temporarily affect payment processing.
+              </AlertDescription>
+            </Alert>
+            
+            <Alert className="bg-green-50 border-green-300">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              <AlertDescription className="text-green-700">
+                Keeping your profile updated helps maintain customer trust and may improve your seller ranking.
+              </AlertDescription>
+            </Alert>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Profile Completeness</h3>
+          <p className="mb-4">A complete profile increases customer trust and improves your visibility on the platform:</p>
+          
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue">100%</div>
+              <div className="text-sm text-gray-600">Complete Profile</div>
+              <div className="text-xs text-gray-500 mt-1">All sections filled</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue">+25%</div>
+              <div className="text-sm text-gray-600">Visibility Boost</div>
+              <div className="text-xs text-gray-500 mt-1">Better search ranking</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue">★ 4.8</div>
+              <div className="text-sm text-gray-600">Trust Score</div>
+              <div className="text-xs text-gray-500 mt-1">Customer confidence</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'complete-profile': {
+    title: 'Complete Seller Profile',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Complete Seller Profile</h2>
+        <p className="text-gray-700">A complete seller profile is essential for building trust with customers and maximizing your sales potential on Fyaril. Follow this checklist to ensure your profile is comprehensive and professional.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Profile Completion Checklist</h3>
+          
+          <div className="space-y-4">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-lg flex items-center">
+                  <FileText className="mr-2 h-5 w-5 text-fyaril-blue" />
+                  Business Information
+                </h4>
+                <span className="text-sm bg-fyaril-blue text-white px-2 py-1 rounded">Required</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Business name and legal structure</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Complete business address</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Business description (min 250 words)</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Year of establishment</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Number of employees</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Annual turnover range</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-lg flex items-center">
+                  <Users className="mr-2 h-5 w-5 text-fyaril-blue" />
+                  Contact Details
+                </h4>
+                <span className="text-sm bg-fyaril-blue text-white px-2 py-1 rounded">Required</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Primary contact person</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Business phone number</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Verified email address</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Customer service hours</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Website URL (if available)</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Social media profiles</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-lg flex items-center">
+                  <Package className="mr-2 h-5 w-5 text-fyaril-blue" />
+                  Product Information
+                </h4>
+                <span className="text-sm bg-fyaril-blue text-white px-2 py-1 rounded">Required</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Primary product categories</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Brand information</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Manufacturing location</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Quality certifications</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Production capacity</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm">Minimum order quantities</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Optional but Recommended</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Camera className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Visual Content
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Company logo (high resolution)</li>
+                <li>Business/facility photos</li>
+                <li>Team photos</li>
+                <li>Product showcase gallery</li>
+                <li>Certification images</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Award className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Credentials
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Industry awards and recognition</li>
+                <li>Export licenses and permits</li>
+                <li>Quality management certifications</li>
+                <li>Environmental certifications</li>
+                <li>Trade association memberships</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Truck className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Policies
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Detailed return policy</li>
+                <li>Shipping and handling terms</li>
+                <li>Quality guarantee</li>
+                <li>Customer service standards</li>
+                <li>Payment terms</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Star className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Testimonials
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Customer testimonials</li>
+                <li>Case studies</li>
+                <li>Success stories</li>
+                <li>Media mentions</li>
+                <li>Press releases</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Profile Optimization Tips</h3>
+          
+          <div className="space-y-4">
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <Eye className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Use Keywords</h4>
+                <p className="text-gray-600">Include relevant industry keywords in your business description to improve discoverability.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <Camera className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">High-Quality Images</h4>
+                <p className="text-gray-600">Upload professional, high-resolution images that showcase your business and products effectively.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <CheckCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Regular Updates</h4>
+                <p className="text-gray-600">Keep your profile information current and update it regularly to maintain relevance.</p>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-start">
+              <div className="bg-fyaril-blue text-white p-2 rounded-full">
+                <Users className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-medium text-lg">Customer Focus</h4>
+                <p className="text-gray-600">Write your profile from the customer's perspective, highlighting benefits and value propositions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <AlertCircle className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle>Profile Completion Benefits</AlertTitle>
+          <AlertDescription>
+            A complete profile increases your chances of getting featured, improves customer trust, and can boost your sales by up to 40%.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'vendor-badges': {
+    title: 'Vendor Badges',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Vendor Badges</h2>
+        <p className="text-gray-700">Vendor badges are special recognition symbols that appear on your profile and product listings. They help build customer trust and increase your visibility on the Fyaril marketplace.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Available Badges</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-fyaril-blue to-fyaril-teal rounded-full flex items-center justify-center mr-3">
+                  <Shield className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Verified Seller</h4>
+                  <span className="text-sm text-green-600">✓ Automatic</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">Awarded automatically after completing KYC verification.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> Complete KYC process and document verification
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full flex items-center justify-center mr-3">
+                  <Star className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Top Rated</h4>
+                  <span className="text-sm text-amber-600">★ Performance Based</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">Awarded to sellers with consistently high ratings and excellent customer service.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> 4.5+ rating, 100+ orders, <5% return rate
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-700 rounded-full flex items-center justify-center mr-3">
+                  <Award className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Premium Brand</h4>
+                  <span className="text-sm text-purple-600">💎 Application Required</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">For established brands with strong market presence and quality products.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> Brand registration, trademark, quality certifications
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-700 rounded-full flex items-center justify-center mr-3">
+                  <CheckCircle className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Eco-Friendly</h4>
+                  <span className="text-sm text-green-600">🌱 Certification Required</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">For sellers committed to environmental sustainability and eco-friendly practices.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> Environmental certifications, sustainable practices
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-700 rounded-full flex items-center justify-center mr-3">
+                  <Truck className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Fast Shipping</h4>
+                  <span className="text-sm text-red-600">⚡ Performance Based</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">Awarded to sellers who consistently ship orders quickly and reliably.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> 95% on-time shipping, <48hr processing time
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <div className="flex items-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mr-3">
+                  <Users className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-lg">Volume Seller</h4>
+                  <span className="text-sm text-blue-600">📈 Sales Based</span>
+                </div>
+              </div>
+              <p className="text-gray-600 mb-2">For high-volume sellers with significant monthly sales on the platform.</p>
+              <div className="text-sm text-gray-500">
+                <strong>Requirements:</strong> €50,000+ monthly sales, 500+ orders/month
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">How to Earn Badges</h3>
+          
+          <Tabs defaultValue="automatic" className="w-full">
+            <TabsList className="mb-4">
+              <TabsTrigger value="automatic">Automatic Badges</TabsTrigger>
+              <TabsTrigger value="performance">Performance Badges</TabsTrigger>
+              <TabsTrigger value="application">Application Badges</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="automatic" className="space-y-4">
+              <p className="text-gray-700 mb-4">These badges are awarded automatically when you meet the criteria:</p>
+              <div className="space-y-4">
+                <div className="flex gap-4 items-start">
+                  <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 1</div>
+                  <div>
+                    <h4 className="font-medium text-lg">Complete Requirements</h4>
+                    <p className="text-gray-600">Fulfill all the necessary requirements for the specific badge.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4 items-start">
+                  <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 2</div>
+                  <div>
+                    <h4 className="font-medium text-lg">System Review</h4>
+                    <p className="text-gray-600">Our system automatically reviews your account weekly for badge eligibility.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4 items-start">
+                  <div className="bg-fyaril-blue text-white px-3 py-1 rounded-full text-sm font-medium">Step 3</div>
+                  <div>
+                    <h4 className="font-medium text-lg">Badge Awarded</h4>
+                    <p className="text-gray-600">Eligible badges are automatically added to your profile within 7 days.</p>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="performance" className="space-y-4">
+              <p className="text-gray-700 mb-4">These badges require consistent performance over time:</p>
+              <div className="space-y-4">
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2">Top Rated Badge</h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Maintain 4.5+ average rating for 3 consecutive months</li>
+                    <li>Complete at least 100 orders</li>
+                    <li>Keep return rate below 5%</li>
+                    <li>Respond to customer queries within 24 hours</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2">Fast Shipping Badge</h4>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Ship 95% of orders on time for 2 consecutive months</li>
+                    <li>Average processing time under 48 hours</li>
+                    <li>Complete at least 50 orders</li>
+                    <li>Zero shipping-related complaints</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="application" className="space-y-4">
+              <p className="text-gray-700 mb-4">These badges require manual application and verification:</p>
+              <div className="space-y-4">
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2">Premium Brand Badge</h4>
+                  <p className="text-gray-600 mb-2">Submit application with:</p>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Trademark registration certificate</li>
+                    <li>Brand portfolio and history</li>
+                    <li>Quality certifications (ISO, etc.)</li>
+                    <li>Market presence documentation</li>
+                  </ul>
+                </div>
+                <div className="border border-fyaril-teal/30 rounded-lg p-4">
+                  <h4 className="font-medium text-lg mb-2">Eco-Friendly Badge</h4>
+                  <p className="text-gray-600 mb-2">Submit application with:</p>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Environmental certifications</li>
+                    <li>Sustainability report</li>
+                    <li>Eco-friendly packaging evidence</li>
+                    <li>Carbon footprint assessment</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Badge Benefits</h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">+35%</div>
+              <div className="text-sm font-medium">Click-through Rate</div>
+              <div className="text-xs text-gray-500 mt-1">Customers trust badged sellers more</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">+20%</div>
+              <div className="text-sm font-medium">Search Ranking</div>
+              <div className="text-xs text-gray-500 mt-1">Better visibility in search results</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">+50%</div>
+              <div className="text-sm font-medium">Conversion Rate</div>
+              <div className="text-xs text-gray-500 mt-1">Higher chance of making sales</div>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <Star className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle>Badge Maintenance</AlertTitle>
+          <AlertDescription>
+            Most badges require ongoing performance to maintain. We review badge eligibility monthly and may remove badges if criteria are no longer met.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
+  'image-guidelines': {
+    title: 'Image Guidelines',
+    content: (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Image Guidelines</h2>
+        <p className="text-gray-700">High-quality images are crucial for success on Fyaril. Follow these comprehensive guidelines to create compelling product images that drive sales and meet our platform standards.</p>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Technical Requirements</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Camera className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Image Specifications
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li><strong>Resolution:</strong> Minimum 1000 x 1000 pixels</li>
+                <li><strong>Recommended:</strong> 2000 x 2000 pixels for zoom functionality</li>
+                <li><strong>Aspect Ratio:</strong> 1:1 (square) preferred</li>
+                <li><strong>File Size:</strong> Maximum 10MB per image</li>
+                <li><strong>Format:</strong> JPG, JPEG, PNG, WEBP</li>
+              </ul>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-2 flex items-center">
+                <Upload className="mr-2 h-5 w-5 text-fyaril-blue" />
+                Upload Requirements
+              </h4>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                <li><strong>Minimum Images:</strong> 5 per product</li>
+                <li><strong>Maximum Images:</strong> 20 per product</li>
+                <li><strong>Main Image:</strong> Must have white background</li>
+                <li><strong>Additional Images:</strong> Can have lifestyle backgrounds</li>
+                <li><strong>Image Names:</strong> Descriptive file names preferred</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Image Types and Requirements</h3>
+          
+          <div className="space-y-6">
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-3 text-fyaril-blue">1. Main Product Image</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium mb-2">Requirements:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Pure white background (RGB: 255, 255, 255)</li>
+                    <li>Product fills 85% of the frame</li>
+                    <li>No shadows, reflections, or borders</li>
+                    <li>Single product only (no variations)</li>
+                    <li>Professional lighting and clarity</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Best Practices:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Front-facing angle for clear view</li>
+                    <li>Product in its natural position</li>
+                    <li>No text overlays or watermarks</li>
+                    <li>Highest quality image of the set</li>
+                    <li>Represents the actual product accurately</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-3 text-fyaril-blue">2. Multiple Angle Views</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium mb-2">Include These Angles:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Front view (main image)</li>
+                    <li>Back view</li>
+                    <li>Left and right side views</li>
+                    <li>Top view (if relevant)</li>
+                    <li>Bottom view (if applicable)</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Tips:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Consistent lighting across all angles</li>
+                    <li>Same white background</li>
+                    <li>Product in center of frame</li>
+                    <li>Clear and sharp focus</li>
+                    <li>Show important details from each angle</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-3 text-fyaril-blue">3. Detail and Close-up Shots</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium mb-2">Focus On:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Material texture and quality</li>
+                    <li>Important features and functions</li>
+                    <li>Brand labels and logos</li>
+                    <li>Size and scale references</li>
+                    <li>Unique selling points</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Requirements:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Sharp focus on featured detail</li>
+                    <li>Good contrast and visibility</li>
+                    <li>Proper lighting to avoid shadows</li>
+                    <li>Clear, unobstructed view</li>
+                    <li>Relevant to customer decision-making</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-3 text-fyaril-blue">4. Lifestyle and Usage Images</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium mb-2">Show Product:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>In real-world usage scenarios</li>
+                    <li>With people (if applicable)</li>
+                    <li>In appropriate environments</li>
+                    <li>Demonstrating key benefits</li>
+                    <li>Size comparison with common objects</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Guidelines:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Professional photography quality</li>
+                    <li>Natural, unforced scenarios</li>
+                    <li>Product clearly visible</li>
+                    <li>Appropriate for target audience</li>
+                    <li>Consistent with brand image</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-fyaril-teal/30 rounded-lg p-4">
+              <h4 className="font-medium text-lg mb-3 text-fyaril-blue">5. Packaging and Unboxing</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium mb-2">Include:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Retail packaging appearance</li>
+                    <li>Contents and accessories</li>
+                    <li>Assembly instructions (if any)</li>
+                    <li>Warranty cards and manuals</li>
+                    <li>Gift packaging options</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium mb-2">Benefits:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <li>Sets accurate expectations</li>
+                    <li>Builds trust and transparency</li>
+                    <li>Reduces return rates</li>
+                    <li>Showcases value proposition</li>
+                    <li>Helps with gift purchases</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Photography Best Practices</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-lg mb-2 text-green-700">✓ Do's</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>Use natural lighting</strong> whenever possible for best color accuracy</li>
+                <li><strong>Invest in a tripod</strong> to ensure sharp, stable images</li>
+                <li><strong>Take multiple shots</strong> and choose the best ones</li>
+                <li><strong>Edit professionally</strong> but maintain realistic representation</li>
+                <li><strong>Show product variations</strong> (colors, sizes) separately</li>
+                <li><strong>Use consistent styling</strong> across all product images</li>
+                <li><strong>Include scale references</strong> for size understanding</li>
+                <li><strong>Shoot in RAW format</strong> for better editing flexibility</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-lg mb-2 text-red-700">✗ Don'ts</h4>
+              <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>Don't use flash photography</strong> as it creates harsh shadows</li>
+                <li><strong>Don't over-edit images</strong> that misrepresent the product</li>
+                <li><strong>Don't include irrelevant items</strong> in product shots</li>
+                <li><strong>Don't use low-resolution images</strong> that appear pixelated</li>
+                <li><strong>Don't add text overlays</strong> or promotional graphics</li>
+                <li><strong>Don't show damaged products</strong> or packaging</li>
+                <li><strong>Don't use images from other sellers</strong> or stock photos</li>
+                <li><strong>Don't upload blurry</strong> or out-of-focus images</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Common Image Mistakes to Avoid</h3>
+          
+          <div className="space-y-4">
+            <Alert className="bg-red-50 border-red-300">
+              <AlertCircle className="h-4 w-4 text-red-500" />
+              <AlertTitle className="text-red-800">Image Rejection Reasons</AlertTitle>
+              <AlertDescription className="text-red-700">
+                <ul className="list-disc pl-5 space-y-1 mt-2">
+                  <li>Blurry or low-quality images</li>
+                  <li>Incorrect background color (non-white for main image)</li>
+                  <li>Text, logos, or watermarks on images</li>
+                  <li>Multiple products in main image</li>
+                  <li>Inappropriate or offensive content</li>
+                  <li>Copyright infringement</li>
+                  <li>Misleading representation of product</li>
+                </ul>
+              </AlertDescription>
+            </Alert>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
+          <h3 className="text-xl font-semibold mb-4">Image Performance Impact</h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">67%</div>
+              <div className="text-sm font-medium">Higher Click Rate</div>
+              <div className="text-xs text-gray-500 mt-1">With high-quality images</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">40%</div>
+              <div className="text-sm font-medium">Fewer Returns</div>
+              <div className="text-xs text-gray-500 mt-1">When expectations are set correctly</div>
+            </div>
+            <div className="text-center p-4 bg-fyaril-teal/10 rounded-lg">
+              <div className="text-2xl font-bold text-fyaril-blue mb-2">3x</div>
+              <div className="text-sm font-medium">Better Conversion</div>
+              <div className="text-xs text-gray-500 mt-1">Professional vs amateur images</div>
+            </div>
+          </div>
+        </div>
+        
+        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
+          <Camera className="h-4 w-4 text-fyaril-blue" />
+          <AlertTitle>Need Photography Help?</AlertTitle>
+          <AlertDescription>
+            Fyaril offers professional photography services for premium sellers. Contact your account manager for more details on our photography packages.
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
+  },
   'start-selling': {
     title: 'Start Selling with Fyaril',
     content: (
@@ -667,7 +1933,7 @@ const sellerPages = {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Payment Schedule Options</h3>
           
           <div className="grid md:grid-cols-3 gap-6">
@@ -715,7 +1981,7 @@ const sellerPages = {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Setting Up Your Payment Account</h3>
           
           <Tabs defaultValue="indian" className="w-full">
@@ -750,7 +2016,7 @@ const sellerPages = {
           </Tabs>
         </div>
         
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Currency Conversion</h3>
           
           <div className="space-y-4">
@@ -777,7 +2043,7 @@ const sellerPages = {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20 mt-8">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Fees & Deductions</h3>
           
           <div className="overflow-x-auto">
