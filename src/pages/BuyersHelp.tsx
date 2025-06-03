@@ -32,10 +32,10 @@ const BuyersHelp = () => {
         
         <div className="space-y-8">
           {/* Quick Start Guide */}
-          <Card className="border-fyaril-blue/20">
+          <Card className="border-[#247e9d]/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Search className="h-6 w-6 text-fyaril-blue" />
+                <Search className="h-6 w-6 text-[#247e9d]" />
                 Quick Start Guide
               </CardTitle>
               <CardDescription>
@@ -45,22 +45,22 @@ const BuyersHelp = () => {
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-4">
-                    <User className="h-8 w-8 text-fyaril-blue" />
+                  <div className="w-16 h-16 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <User className="h-8 w-8 text-[#247e9d]" />
                   </div>
                   <h3 className="font-semibold mb-2">Visit www.fyaril.com</h3>
                   <p className="text-gray-600 text-sm">Go to ACCOUNTS and Register</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-4">
-                    <Search className="h-8 w-8 text-fyaril-blue" />
+                  <div className="w-16 h-16 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <Search className="h-8 w-8 text-[#247e9d]" />
                   </div>
                   <h3 className="font-semibold mb-2">Browse Products</h3>
                   <p className="text-gray-600 text-sm">Search and discover quality products</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-4">
-                    <ShoppingCart className="h-8 w-8 text-fyaril-blue" />
+                  <div className="w-16 h-16 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <ShoppingCart className="h-8 w-8 text-[#247e9d]" />
                   </div>
                   <h3 className="font-semibold mb-2">Place Order</h3>
                   <p className="text-gray-600 text-sm">Add to cart and complete purchase</p>
@@ -73,7 +73,7 @@ const BuyersHelp = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <User className="h-6 w-6 text-fyaril-blue" />
+                <User className="h-6 w-6 text-[#247e9d]" />
                 Registration Process
               </CardTitle>
               <CardDescription>
@@ -82,7 +82,7 @@ const BuyersHelp = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="bg-fyaril-blue/5 p-6 rounded-lg">
+                <div className="bg-[#247e9d]/5 p-6 rounded-lg">
                   <h3 className="font-semibold text-lg mb-4">Register for a free account</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -122,7 +122,7 @@ const BuyersHelp = () => {
                   <Info className="h-4 w-4 text-blue-600" />
                   <AlertTitle className="text-blue-800">Once registered</AlertTitle>
                   <AlertDescription className="text-blue-700">
-                    You can login to your account and access B2B products. Choose the product you wish to request quotation for, Select bulk enquiry through "I", Provide all enquiries such as Buying, Delivery date, address and add message to the manufacturer. Click on Submit Request (Image 2).
+                    You can login to your account and access B2B products. Choose the product you wish to request quotation for, Select bulk enquiry through "I", Provide all enquiries such as Buying, Delivery date, address and add message to the manufacturer. Click on Submit Request.
                   </AlertDescription>
                 </Alert>
               </div>
@@ -133,7 +133,7 @@ const BuyersHelp = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Package className="h-6 w-6 text-fyaril-blue" />
+                <Package className="h-6 w-6 text-[#247e9d]" />
                 How Orders Work
               </CardTitle>
               <CardDescription>
@@ -146,49 +146,49 @@ const BuyersHelp = () => {
                   <h3 className="font-semibold text-lg mb-4">Order Processing Steps</h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</div>
                       <div>
                         <h4 className="font-medium">You submit enquiry</h4>
                         <p className="text-gray-600 text-sm">Submit your product requirements and specifications</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</div>
                       <div>
                         <h4 className="font-medium">Receive our offer and our Customer welcomes your enquiry</h4>
                         <p className="text-gray-600 text-sm">Get detailed quotation with pricing and delivery terms</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</div>
                       <div>
                         <h4 className="font-medium">Reply with quotation date of delivery</h4>
                         <p className="text-gray-600 text-sm">Confirm your requirements and expected delivery timeline</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">4</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">4</div>
                       <div>
                         <h4 className="font-medium">Confirm LH Quantity Qty vs Investment Effort Relation Order Security</h4>
                         <p className="text-gray-600 text-sm">Finalize quantity, payment terms and delivery schedule</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">5</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">5</div>
                       <div>
                         <h4 className="font-medium">Contact LH Po Company from unit required Supplier</h4>
                         <p className="text-gray-600 text-sm">Direct communication with supplier for order finalization</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">6</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">6</div>
                       <div>
                         <h4 className="font-medium">Contact a PI, No Company from unit required Supplier</h4>
                         <p className="text-gray-600 text-sm">Receive proforma invoice and order confirmation</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="bg-fyaril-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">7</div>
+                      <div className="bg-[#247e9d] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">7</div>
                       <div>
                         <h4 className="font-medium">If there is a need for samples then purchase a sample to get Product specification</h4>
                         <p className="text-gray-600 text-sm">Quality check through sample approval process</p>
@@ -212,8 +212,8 @@ const BuyersHelp = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-2">
-                  <Search className="h-6 w-6 text-fyaril-blue" />
+                <div className="w-12 h-12 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-2">
+                  <Search className="h-6 w-6 text-[#247e9d]" />
                 </div>
                 <CardTitle className="text-lg">Easy Browsing</CardTitle>
               </CardHeader>
@@ -224,8 +224,8 @@ const BuyersHelp = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-2">
-                  <CreditCard className="h-6 w-6 text-fyaril-blue" />
+                <div className="w-12 h-12 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-2">
+                  <CreditCard className="h-6 w-6 text-[#247e9d]" />
                 </div>
                 <CardTitle className="text-lg">Secure Payments</CardTitle>
               </CardHeader>
@@ -236,8 +236,8 @@ const BuyersHelp = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-2">
-                  <Truck className="h-6 w-6 text-fyaril-blue" />
+                <div className="w-12 h-12 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-2">
+                  <Truck className="h-6 w-6 text-[#247e9d]" />
                 </div>
                 <CardTitle className="text-lg">Fast Delivery</CardTitle>
               </CardHeader>
@@ -248,8 +248,8 @@ const BuyersHelp = () => {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-12 h-12 bg-fyaril-blue/10 rounded-full mx-auto flex items-center justify-center mb-2">
-                  <Shield className="h-6 w-6 text-fyaril-blue" />
+                <div className="w-12 h-12 bg-[#247e9d]/10 rounded-full mx-auto flex items-center justify-center mb-2">
+                  <Shield className="h-6 w-6 text-[#247e9d]" />
                 </div>
                 <CardTitle className="text-lg">Quality Guarantee</CardTitle>
               </CardHeader>
@@ -260,7 +260,7 @@ const BuyersHelp = () => {
           </div>
 
           {/* Contact Support */}
-          <Card className="bg-gradient-to-r from-fyaril-blue to-fyaril-teal text-white">
+          <Card className="bg-gradient-to-r from-[#247e9d] to-[#247e9d]/80 text-white">
             <CardHeader>
               <CardTitle className="text-center">Need Help with Your Purchase?</CardTitle>
               <CardDescription className="text-center text-white/80">
@@ -268,7 +268,7 @@ const BuyersHelp = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Button className="bg-white text-fyaril-blue hover:bg-gray-100">
+              <Button className="bg-white text-[#247e9d] hover:bg-gray-100">
                 Contact Support
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
