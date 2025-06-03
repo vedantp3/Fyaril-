@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -18,6 +17,20 @@ import { cn } from '@/lib/utils';
 
 const userTypes = [
   {
+    type: 'buyers',
+    label: 'For Buyers',
+    path: '/buyers',
+    icon: ShoppingCart,
+    items: [
+      { label: 'Getting Started', path: '/buyers/getting-started' },
+      { label: 'How to Order', path: '/buyers/how-to-order' },
+      { label: 'Payment Methods', path: '/buyers/payment' },
+      { label: 'Shipping Info', path: '/buyers/shipping' },
+      { label: 'Returns & Refunds', path: '/buyers/returns' },
+      { label: 'Buyer FAQ', path: '/buyers/faq' },
+    ]
+  },
+  {
     type: 'sellers',
     label: 'For Sellers',
     path: '/sellers',
@@ -35,7 +48,7 @@ const userTypes = [
     type: 'b2b',
     label: 'For B2B Buyers',
     path: '/b2b',
-    icon: ShoppingCart,
+    icon: Users,
     items: [
       { label: 'Bulk Purchase Process', path: '/b2b/bulk-purchase' },
       { label: 'Business Account Setup', path: '/b2b/account-setup' },
@@ -47,7 +60,7 @@ const userTypes = [
     type: 'b2c',
     label: 'For B2C Buyers',
     path: '/b2c',
-    icon: Users,
+    icon: ShoppingCart,
     items: [
       { label: 'Shopping Guide', path: '/b2c/shopping-guide' },
       { label: 'Returns & Refunds', path: '/b2c/returns' },

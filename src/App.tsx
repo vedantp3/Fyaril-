@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import SellerHelp from "./pages/SellerHelp";
 import SellerDetail from "./pages/SellerDetail";
 import GeneralFAQ from "./pages/GeneralFAQ";
+import BuyersHelp from "./pages/BuyersHelp";
 import B2BDetail from "./pages/B2BDetail";
 import B2CDetail from "./pages/B2CDetail";
 import PartnersDetail from "./pages/PartnersDetail";
@@ -23,6 +24,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          
+          {/* Buyer routes */}
+          <Route path="/buyers" element={<BuyersHelp />} />
           
           {/* Seller routes */}
           <Route path="/sellers" element={<SellerHelp />} />
