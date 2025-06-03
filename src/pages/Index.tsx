@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-fyaril-darkblue to-fyaril-blue py-20 px-6">
+      <section className="bg-gradient-to-r from-fyaril-blue to-fyaril-blue/80 py-20 px-6">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             Welcome to Fyaril Help Center
@@ -29,7 +28,7 @@ const Index = () => {
               placeholder="Search for help articles..."
               className="w-full py-4 px-6 rounded-full text-lg focus:outline-none focus:ring-2 focus:ring-white/30"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-fyaril-blue hover:bg-fyaril-darkblue text-white p-3 rounded-full transition-colors">
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-fyaril-blue hover:bg-fyaril-blue/80 text-white p-3 rounded-full transition-colors">
               <HelpCircle size={24} />
             </button>
           </div>
@@ -42,46 +41,46 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center mb-12">How can we help you?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Link to="/buyers" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 text-center">
-              <div className="w-16 h-16 bg-blue-50 rounded-full mx-auto flex items-center justify-center mb-4">
-                <ShoppingCart className="text-fyaril-blue" size={28} />
+            <Link to="/buyers" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 text-center group hover:scale-105">
+              <div className="w-16 h-16 bg-fyaril-blue/10 group-hover:bg-fyaril-blue rounded-full mx-auto flex items-center justify-center mb-4 transition-all duration-300">
+                <ShoppingCart className="text-fyaril-blue group-hover:text-white transition-colors duration-300" size={28} />
               </div>
-              <h3 className="text-xl font-semibold mb-2">For Buyers</h3>
+              <h3 className="text-xl font-semibold mb-2 group-hover:text-fyaril-blue transition-colors">For Buyers</h3>
               <p className="text-gray-600 mb-4">Find help with purchases, returns, and account management</p>
-              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium">
+              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium group-hover:translate-x-1 transition-transform">
                 Learn More <ChevronRight size={16} />
               </span>
             </Link>
             
-            <Link to="/sellers" className="bg-gradient-to-br from-fyaril-blue to-fyaril-teal rounded-xl p-8 shadow-md text-white text-center">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mx-auto flex items-center justify-center mb-4">
-                <User className="text-white" size={28} />
+            <Link to="/sellers" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 text-center group hover:scale-105">
+              <div className="w-16 h-16 bg-fyaril-blue/10 group-hover:bg-fyaril-blue rounded-full mx-auto flex items-center justify-center mb-4 transition-all duration-300">
+                <User className="text-fyaril-blue group-hover:text-white transition-colors duration-300" size={28} />
               </div>
-              <h3 className="text-xl font-semibold mb-2">For Sellers</h3>
-              <p className="text-white/80 mb-4">Everything you need to start and grow your business on Fyaril</p>
-              <span className="text-white flex items-center justify-center gap-1 font-medium">
+              <h3 className="text-xl font-semibold mb-2 group-hover:text-fyaril-blue transition-colors">For Sellers</h3>
+              <p className="text-gray-600 mb-4">Everything you need to start and grow your business on Fyaril</p>
+              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium group-hover:translate-x-1 transition-transform">
                 Learn More <ChevronRight size={16} />
               </span>
             </Link>
             
-            <Link to="/faq" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 text-center">
-              <div className="w-16 h-16 bg-blue-50 rounded-full mx-auto flex items-center justify-center mb-4">
-                <FileText className="text-fyaril-blue" size={28} />
+            <Link to="/faq" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 text-center group hover:scale-105">
+              <div className="w-16 h-16 bg-fyaril-blue/10 group-hover:bg-fyaril-blue rounded-full mx-auto flex items-center justify-center mb-4 transition-all duration-300">
+                <FileText className="text-fyaril-blue group-hover:text-white transition-colors duration-300" size={28} />
               </div>
-              <h3 className="text-xl font-semibold mb-2">General FAQ</h3>
+              <h3 className="text-xl font-semibold mb-2 group-hover:text-fyaril-blue transition-colors">General FAQ</h3>
               <p className="text-gray-600 mb-4">Answers to commonly asked questions about using Fyaril</p>
-              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium">
+              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium group-hover:translate-x-1 transition-transform">
                 Learn More <ChevronRight size={16} />
               </span>
             </Link>
             
-            <Link to="/contact" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 text-center">
-              <div className="w-16 h-16 bg-blue-50 rounded-full mx-auto flex items-center justify-center mb-4">
-                <Phone className="text-fyaril-blue" size={28} />
+            <Link to="/contact" className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 text-center group hover:scale-105">
+              <div className="w-16 h-16 bg-fyaril-blue/10 group-hover:bg-fyaril-blue rounded-full mx-auto flex items-center justify-center mb-4 transition-all duration-300">
+                <Phone className="text-fyaril-blue group-hover:text-white transition-colors duration-300" size={28} />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Contact Support</h3>
+              <h3 className="text-xl font-semibold mb-2 group-hover:text-fyaril-blue transition-colors">Contact Support</h3>
               <p className="text-gray-600 mb-4">Get in touch with our customer support team</p>
-              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium">
+              <span className="text-fyaril-blue flex items-center justify-center gap-1 font-medium group-hover:translate-x-1 transition-transform">
                 Learn More <ChevronRight size={16} />
               </span>
             </Link>
@@ -95,39 +94,39 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center mb-12">Popular Help Topics</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">How to create an account</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">How to create an account</h3>
               <p className="text-gray-600 text-sm">Step-by-step guide to setting up your Fyaril account</p>
             </div>
             
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">Return policy</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">Return policy</h3>
               <p className="text-gray-600 text-sm">Learn about our customer-friendly return process</p>
             </div>
             
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">Shipping information</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">Shipping information</h3>
               <p className="text-gray-600 text-sm">Details about shipping methods, costs and timelines</p>
             </div>
             
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">Payment methods</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">Payment methods</h3>
               <p className="text-gray-600 text-sm">View all accepted payment options on Fyaril</p>
             </div>
             
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">Seller verification</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">Seller verification</h3>
               <p className="text-gray-600 text-sm">Understanding the seller verification process</p>
             </div>
             
-            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
-              <h3 className="font-medium text-lg mb-2">Product listing guidelines</h3>
+            <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group">
+              <h3 className="font-medium text-lg mb-2 group-hover:text-fyaril-blue transition-colors">Product listing guidelines</h3>
               <p className="text-gray-600 text-sm">Best practices for listing your products</p>
             </div>
           </div>
           
           <div className="text-center mt-12">
-            <Button className="bg-fyaril-blue hover:bg-fyaril-darkblue">
+            <Button className="bg-fyaril-blue hover:bg-fyaril-blue/80">
               View All Help Topics
             </Button>
           </div>
@@ -135,15 +134,17 @@ const Index = () => {
       </section>
       
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-fyaril-blue to-fyaril-teal py-16 px-6">
+      <section className="bg-fyaril-blue py-16 px-6">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Can't find what you're looking for?</h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Our support team is here to help you with any questions or issues you may have.
           </p>
-          <Button className="bg-white text-fyaril-blue hover:bg-gray-100">
-            Contact Support
-          </Button>
+          <Link to="/contact">
+            <Button className="bg-white text-fyaril-blue hover:bg-gray-100">
+              Contact Support
+            </Button>
+          </Link>
         </div>
       </section>
       
@@ -158,10 +159,10 @@ const Index = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Help Center</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white">For Buyers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">For Sellers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">FAQs</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Contact Support</a></li>
+              <li><Link to="/buyers" className="text-gray-400 hover:text-white">For Buyers</Link></li>
+              <li><Link to="/sellers" className="text-gray-400 hover:text-white">For Sellers</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white">FAQs</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white">Contact Support</Link></li>
             </ul>
           </div>
           

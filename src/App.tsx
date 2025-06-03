@@ -13,6 +13,7 @@ import BuyersHelp from "./pages/BuyersHelp";
 import B2BDetail from "./pages/B2BDetail";
 import B2CDetail from "./pages/B2CDetail";
 import PartnersDetail from "./pages/PartnersDetail";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
           
           {/* General routes */}
           <Route path="/faq" element={<GeneralFAQ />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<NotFound />} />
           
           <Route path="*" element={<NotFound />} />
