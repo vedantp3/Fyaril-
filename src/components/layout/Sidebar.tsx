@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -38,7 +39,13 @@ const userTypes = [
     items: [
       { label: 'Start Selling with Fyaril', path: '/sellers/start-selling' },
       { label: 'Seller Plans', path: '/sellers/plans' },
+      { label: 'Register as a Vendor', path: '/sellers/register' },
+      { label: 'Complete Seller KYC', path: '/sellers/kyc' },
+      { label: 'Edit My Vendor Profile', path: '/sellers/edit-profile' },
+      { label: 'Complete Seller Profile', path: '/sellers/complete-profile' },
+      { label: 'Vendor Badges', path: '/sellers/badges' },
       { label: 'Product Listing', path: '/sellers/product-listing' },
+      { label: 'Image Guidelines', path: '/sellers/image-guidelines' },
       { label: 'Order Processing & Shipping', path: '/sellers/order-processing' },
       { label: 'Payment Withdrawal', path: '/sellers/payment' },
       { label: 'Seller General FAQ', path: '/sellers/faq' },
