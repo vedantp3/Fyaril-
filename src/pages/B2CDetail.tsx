@@ -28,7 +28,7 @@ const b2cPages = {
                   <li>Use the search bar to find specific products</li>
                   <li>Browse by categories like Fashion, Electronics, Home & Garden</li>
                   <li>Filter by price, brand, ratings, and delivery options</li>
-                  <li>Check product reviews and ratings from verified customers</li>
+                  <li>Check product reviews and ratings from verified  customers</li>
                 </ul>
               </div>
             </div>

@@ -31,6 +31,7 @@ const userTypes = [
       { label: 'Buyer FAQ', path: '/buyers/faq' },
     ]
   },
+  
   {
     type: 'sellers',
     label: 'For Sellers',

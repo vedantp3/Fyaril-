@@ -6,13 +6,20 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle, Package, CreditCard, Truck, FileText, Users, Shield, Star, Award, Camera, Upload, Eye, Edit, UserCheck, Clock, Euro, Zap, Target, Globe, DollarSign, TrendingUp, BarChart3, HeadphonesIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// Content for different seller pages
+
 const sellerPages = {
   'start-selling': {
     title: 'Start Selling with Fyaril',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Start Selling with Fyaril</h2>
+        <div className="flex justify-center mb-8">
+              <img 
+                src="/uploads/_- visual selection.png"  
+                alt="Fyaril Seller Registration Process"
+                className="max-w-full h-auto rounded-lg shadow-lg"
+              />
+            </div>
+        
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Getting Started</h3>
@@ -120,7 +127,7 @@ const sellerPages = {
     title: 'Seller Plans',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Seller Plans</h2>
+        
         <p className="text-gray-700">Choose the plan that best fits your business needs. All plans include access to the European market and Fyaril's seller tools.</p>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -299,7 +306,7 @@ const sellerPages = {
     title: 'Product Listing',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Product Listing</h2>
+        
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
           <h3 className="text-xl font-semibold mb-4">Product Listing Guidelines</h3>
@@ -508,7 +515,7 @@ const sellerPages = {
     title: 'Order Processing & Shipping',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Order Processing & Shipping</h2>
+        
         <p className="text-gray-700">Learn how to manage orders efficiently and ship products to European customers through Fyaril.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -705,7 +712,7 @@ const sellerPages = {
     title: 'Payment Withdrawal',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Payment Withdrawal</h2>
+        
         <p className="text-gray-700">Learn how payments work on Fyaril and how to withdraw your earnings to your bank account.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -914,7 +921,7 @@ const sellerPages = {
     title: 'Seller General FAQ',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Seller FAQ</h2>
+        
         <p className="text-gray-700">Find answers to commonly asked questions about selling on Fyaril.</p>
         
         <div className="space-y-4">
@@ -959,12 +966,11 @@ const sellerPages = {
       </div>
     )
   },
-  // ... keep existing code (register, kyc, edit-profile, complete-profile, vendor-badges, image-guidelines, default)
-  'register': {
+    'register': {
     title: 'Register as a Vendor',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Register as a Vendor on Fyaril</h2>
+        
         <p className="text-gray-700">Join thousands of vendors selling to European customers. Follow these steps to create your vendor account and start your global selling journey.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1038,7 +1044,7 @@ const sellerPages = {
     title: 'Complete Seller KYC',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Complete Seller KYC</h2>
+        
         <p className="text-gray-700">Know Your Customer (KYC) verification is mandatory for all sellers on Fyaril. This ensures compliance with international trade regulations and builds trust with customers.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1260,52 +1266,57 @@ const sellerPages = {
       </div>
     )
   },
-  'edit-profile': {
-    title: 'Edit my vendor Profile',
+  'edit-profile': { 
+    title: 'Editing my vendor profile', 
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Edit Your Vendor Profile</h2>
-        <p className="text-gray-700">Keep your vendor profile updated to maintain credibility and attract more customers. A complete profile helps build trust with buyers.</p>
+        <p className="text-lg text-gray-800">
+          Keep your vendor profile updated to achieve best sales performance and smooth communication.
+        </p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
-          <h3 className="text-xl font-semibold mb-4">Profile Sections</h3>
+          <h3 className="text-xl font-semibold mb-4 text-fyaril-blue">Editing Vendor Profile from the Vendor Panel</h3>
           
-          <div className="space-y-4">
-            <div className="border border-fyaril-teal/30 rounded-lg p-4">
-              <h4 className="font-medium text-lg mb-2 flex items-center">
-                <Edit className="mr-2 h-5 w-5 text-fyaril-blue" />
-                Business Information
-              </h4>
-              <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                <li>Business name and description</li>
-                <li>Contact details</li>
-                <li>Business address</li>
-                <li>Operating hours</li>
-              </ul>
+          <div className="space-y-4 text-gray-700">
+            <p>To edit your vendor profile, login with your login ID and password through the Seller Partner dropdown menu.</p>
+            <p>In the top right corner you can see a little profile icon with a dropdown menu. Click on the profile icon and then select 'Edit Profile'.</p>
+            
+            <div className="my-6 text-center">
+              <img 
+                src="https://fyaril-live.s3.eu-central-1.amazonaws.com/images/Help+Center/image043.png" 
+                alt="Profile icon with Edit Profile option in dropdown menu" 
+                className="inline-block max-w-full md:max-w-lg rounded-lg shadow-md border" 
+              />
+              
+              <p className="text-sm text-gray-500 mt-2">Accessing 'Edit Profile' from the vendor panel.</p>
+              
             </div>
             
-            <div className="border border-fyaril-teal/30 rounded-lg p-4">
-              <h4 className="font-medium text-lg mb-2 flex items-center">
-                <Camera className="mr-2 h-5 w-5 text-fyaril-blue" />
-                Visual Elements
-              </h4>
-              <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                <li>Profile logo/image</li>
-                <li>Cover banner</li>
-                <li>Product showcase images</li>
-                <li>Company certificates</li>
-              </ul>
+            <p>Once you come to the profile edit page, you can edit your information, such as your billing address, shipping address, account information and such.</p>
+            <p>Once you make your edits click on <strong>SAVE</strong> so that your changes are saved to our servers.</p>
+            
+            <div className="my-6 text-center">
+              <img 
+                src="https://fyaril-live.s3.eu-central-1.amazonaws.com/images/Help+Center/image044.png" 
+                alt="Vendor profile edit page with information fields and SAVE button" 
+                className="inline-block max-w-full md:max-w-xl rounded-lg shadow-md border"
+              />
+            
+              <p className="text-sm text-gray-500 mt-2">Saving changes on the profile edit page.</p>
             </div>
           </div>
         </div>
-        
-        <Alert className="bg-fyaril-blue/10 border-fyaril-blue">
-          <AlertCircle className="h-4 w-4 text-fyaril-blue" />
-          <AlertTitle>Profile Optimization</AlertTitle>
-          <AlertDescription>
-            A complete profile increases your visibility and helps customers trust your business.
-          </AlertDescription>
-        </Alert>
+
+        <div className="mt-8 p-6 bg-fyaril-blue/10 border-l-4 border-fyaril-blue rounded-md">
+          <h4 className="text-lg font-semibold mb-2 text-fyaril-blue">Have Questions?</h4>
+          <p className="text-gray-700">
+            If you have any additional queries don't hesitate to get in touch with us through{' '}
+            <strong>My seller Message Center</strong>, or you can email us at{' '}
+            <a href="mailto:sellers@fyaril.com" className="font-medium text-fyaril-blue hover:underline">
+              sellers@fyaril.com
+            </a>.
+          </p>
+        </div>
       </div>
     )
   },
@@ -1313,7 +1324,7 @@ const sellerPages = {
     title: 'Complete seller profile',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Complete Your Seller Profile</h2>
+        
         <p className="text-gray-700">A complete seller profile is essential for success on Fyaril. It helps customers understand your business and builds trust in your brand.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1353,7 +1364,7 @@ const sellerPages = {
     title: 'Vendor Badges',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Vendor Badges</h2>
+        
         <p className="text-gray-700">Vendor badges are special recognition symbols that appear on your profile and product listings. They help build customer trust and increase your visibility on the Fyaril marketplace.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1420,7 +1431,7 @@ const sellerPages = {
     title: 'Image Guidelines',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Image Guidelines</h2>
+        
         <p className="text-gray-700">High-quality images are crucial for attracting customers and showcasing your products effectively. Follow these guidelines to ensure your images meet Fyaril standards.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1498,7 +1509,7 @@ const sellerPages = {
     title: 'Seller Help Center',
     content: (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Welcome to the Seller Help Center</h2>
+        
         <p className="text-gray-700">Find answers to common questions and learn how to make the most of your seller account on Fyaril.</p>
         
         <div className="bg-white rounded-lg p-6 shadow-sm border border-fyaril-teal/20">
@@ -1525,6 +1536,7 @@ const sellerPages = {
   }
 };
 
+
 const SellerDetail = () => {
   const { slug } = useParams();
   const [pageContent, setPageContent] = useState(null);
@@ -1533,7 +1545,7 @@ const SellerDetail = () => {
     if (slug && sellerPages[slug]) {
       setPageContent(sellerPages[slug]);
     } else {
-      // Default content for /sellers route without slug or unknown slug
+      
       setPageContent(sellerPages['default']);
     }
   }, [slug]);

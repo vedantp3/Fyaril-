@@ -33,7 +33,6 @@ const Contact = () => {
         {/* Contact Options */}
         <section className="py-16 px-6">
           <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {/* Live Chat */}
@@ -261,11 +260,11 @@ const Contact = () => {
               <Button className="bg-white text-fyaril-blue hover:bg-gray-100">
                 Emergency Hotline: +91 80-1234-9999
               </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-fyaril-blue">
+              <Button variant="outline" className="border-white text-fyaril-blue hover:bg-white hover:text-fyaril-blue">
                 Report Security Issue
               </Button>
             </div>
-            <p className="text-white/60 text-sm mt-4">Available 24/7 for critical issues only</p>
+            <p className="text-white/60 text-sm mt-5">Available 24/7 for critical issues only</p>
           </div>
         </section>
       </div>

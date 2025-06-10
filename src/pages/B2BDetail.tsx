@@ -132,7 +132,7 @@ const b2bPages = {
                 <li>Certificate of Incorporation</li>
                 <li>Business Registration Number</li>
                 <li>VAT Registration Certificate</li>
-                <li>Company Articles of Association</li>
+                <li>Company Articles of Association </li>
               </ul>
             </div>
             <div>

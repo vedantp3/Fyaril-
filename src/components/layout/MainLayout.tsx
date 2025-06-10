@@ -15,7 +15,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/').filter(segment => segment);
 
-  // Create breadcrumb labels map
   const breadcrumbLabels: Record<string, string> = {
     'sellers': 'For Sellers',
     'b2b': 'For B2B Buyers',
